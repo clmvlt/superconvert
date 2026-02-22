@@ -1,6 +1,6 @@
 [package]
 name = "convertor"
-version = "0.1.0"
+version = "0.0.1"
 description = "Convertor - A fast cross-platform file converter"
 authors = ["cleme"]
 license = "MIT"
