@@ -1,0 +1,63 @@
+[package]
+name = "convertor"
+version = "0.1.0"
+description = "Convertor - A fast cross-platform file converter"
+authors = ["cleme"]
+license = "MIT"
+repository = ""
+edition = "2021"
+rust-version = "1.77.2"
+
+[lib]
+name = "app_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2.5.4", features = [] }
+
+[dependencies]
+# === Tauri ===
+tauri = { version = "2.10.0", features = [] }
+tauri-plugin-log = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-fs = "2"
+tauri-plugin-shell = "2"
+
+# === Serialization ===
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# === Async / Parallelism ===
+tokio = { version = "1", features = ["full"] }
+rayon = "1.10"
+
+# === Image conversion ===
+image = { version = "0.25", features = ["png", "jpeg", "gif", "bmp", "ico", "tiff", "webp", "avif"] }
+resvg = "0.44"
+usvg = "0.44"
+
+# === Audio conversion ===
+symphonia = { version = "0.5", features = ["all"] }
+hound = "3.5"
+
+# === PDF ===
+lopdf = "0.39"
+printpdf = "0.9"
+
+# === Error handling ===
+anyhow = "1"
+thiserror = "2"
+
+# === Logging ===
+log = "0.4"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# === Utils ===
+uuid = { version = "1", features = ["v4"] }
+tempfile = "3"
+mime_guess = "2"
+
+# === Platform: Windows context menu ===
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"
