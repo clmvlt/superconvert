@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "Convertor",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "identifier": "com.convertor.app",
   "build": {
     "frontendDist": "../dist",
