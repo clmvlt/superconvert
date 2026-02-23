@@ -24,11 +24,17 @@ impl ImageConverter {
             .unwrap_or("")
             .to_lowercase();
 
-        if ext == "svg" {
-            return self.load_svg(input);
+        match ext.as_str() {
+            "svg" => self.load_svg(input),
+            "psd" => self.load_psd(input),
+            #[cfg(feature = "heif")]
+            "heif" | "heic" => self.load_heif(input),
+            #[cfg(feature = "raw-photos")]
+            "cr2" | "nef" | "arw" | "dng" | "orf" | "rw2" => self.load_raw(input),
+            #[cfg(feature = "jxl")]
+            "jxl" => self.load_jxl(input),
+            _ => image::open(input).map_err(|e| ConversionError::ReadError(e.to_string())),
         }
-
-        image::open(input).map_err(|e| ConversionError::ReadError(e.to_string()))
     }
 
     fn load_svg(&self, input: &Path) -> Result<DynamicImage, ConversionError> {
@@ -67,6 +73,134 @@ impl ImageConverter {
 
         let img_buf = image::RgbaImage::from_raw(width, height, pixels).ok_or_else(|| {
             ConversionError::ConversionFailed("Failed to create image from SVG pixels".to_string())
+        })?;
+
+        Ok(DynamicImage::ImageRgba8(img_buf))
+    }
+
+    fn load_psd(&self, input: &Path) -> Result<DynamicImage, ConversionError> {
+        let psd_bytes =
+            fs::read(input).map_err(|e| ConversionError::ReadError(e.to_string()))?;
+
+        let psd_file = psd::Psd::from_bytes(&psd_bytes)
+            .map_err(|e| ConversionError::ReadError(format!("PSD parse error: {:?}", e)))?;
+
+        let width = psd_file.width();
+        let height = psd_file.height();
+        let rgba = psd_file.rgba();
+
+        let img_buf = image::RgbaImage::from_raw(width, height, rgba).ok_or_else(|| {
+            ConversionError::ConversionFailed("Failed to create image from PSD".to_string())
+        })?;
+
+        Ok(DynamicImage::ImageRgba8(img_buf))
+    }
+
+    #[cfg(feature = "heif")]
+    fn load_heif(&self, input: &Path) -> Result<DynamicImage, ConversionError> {
+        let ctx = libheif_rs::HeifContext::read_from_file(input.to_str().unwrap_or(""))
+            .map_err(|e| ConversionError::ReadError(format!("HEIF error: {}", e)))?;
+
+        let handle = ctx
+            .primary_image_handle()
+            .map_err(|e| ConversionError::ReadError(format!("HEIF handle error: {}", e)))?;
+
+        let heif_img = handle
+            .decode(libheif_rs::ColorSpace::Rgb(libheif_rs::RgbChroma::Rgba), None)
+            .map_err(|e| ConversionError::ReadError(format!("HEIF decode error: {}", e)))?;
+
+        let width = heif_img.width(libheif_rs::Channel::Interleaved)
+            .map_err(|e| ConversionError::ReadError(format!("HEIF width error: {}", e)))?;
+        let height = heif_img.height(libheif_rs::Channel::Interleaved)
+            .map_err(|e| ConversionError::ReadError(format!("HEIF height error: {}", e)))?;
+
+        let plane = heif_img.plane(libheif_rs::Channel::Interleaved)
+            .map_err(|e| ConversionError::ReadError(format!("HEIF plane error: {}", e)))?;
+
+        let stride = plane.stride;
+        let data = plane.data;
+        let mut rgba_data = Vec::with_capacity((width * height * 4) as usize);
+        for y in 0..height as usize {
+            let row_start = y * stride;
+            rgba_data.extend_from_slice(&data[row_start..row_start + (width as usize * 4)]);
+        }
+
+        let img_buf = image::RgbaImage::from_raw(width, height, rgba_data).ok_or_else(|| {
+            ConversionError::ConversionFailed("Failed to create image from HEIF".to_string())
+        })?;
+
+        Ok(DynamicImage::ImageRgba8(img_buf))
+    }
+
+    #[cfg(feature = "raw-photos")]
+    fn load_raw(&self, input: &Path) -> Result<DynamicImage, ConversionError> {
+        let raw_image = rawloader::decode_file(input)
+            .map_err(|e| ConversionError::ReadError(format!("Raw decode error: {}", e)))?;
+
+        let pipeline = imagepipe::Pipeline::new_from_rawimage(&raw_image);
+        let result = pipeline.output_8bit(None)
+            .map_err(|e| ConversionError::ConversionFailed(format!("Raw pipeline error: {}", e)))?;
+
+        let img_buf =
+            image::RgbImage::from_raw(result.width as u32, result.height as u32, result.data)
+                .ok_or_else(|| {
+                    ConversionError::ConversionFailed(
+                        "Failed to create image from raw photo".to_string(),
+                    )
+                })?;
+
+        Ok(DynamicImage::ImageRgb8(img_buf))
+    }
+
+    #[cfg(feature = "jxl")]
+    fn load_jxl(&self, input: &Path) -> Result<DynamicImage, ConversionError> {
+        let data = fs::read(input).map_err(|e| ConversionError::ReadError(e.to_string()))?;
+        let reader = jxl_oxide::JxlImage::builder()
+            .read(&data)
+            .map_err(|e| ConversionError::ReadError(format!("JPEG XL error: {}", e)))?;
+
+        let render = reader
+            .render_frame(0)
+            .map_err(|e| ConversionError::ConversionFailed(format!("JXL render error: {}", e)))?;
+
+        let fb = render.image();
+        let width = fb.width() as u32;
+        let height = fb.height() as u32;
+
+        let buf = fb.buf();
+        let channels = fb.channels();
+
+        let mut rgba_data = Vec::with_capacity((width * height * 4) as usize);
+        for y in 0..height as usize {
+            for x in 0..width as usize {
+                let idx = y * width as usize + x;
+                let r = (buf[idx] * 255.0).clamp(0.0, 255.0) as u8;
+                let g = if channels > 1 {
+                    (buf[width as usize * height as usize + idx] * 255.0).clamp(0.0, 255.0) as u8
+                } else {
+                    r
+                };
+                let b = if channels > 2 {
+                    (buf[2 * width as usize * height as usize + idx] * 255.0).clamp(0.0, 255.0)
+                        as u8
+                } else {
+                    r
+                };
+                let a = if channels > 3 {
+                    (buf[3 * width as usize * height as usize + idx] * 255.0).clamp(0.0, 255.0)
+                        as u8
+                } else {
+                    255u8
+                };
+                rgba_data.push(r);
+                rgba_data.push(g);
+                rgba_data.push(b);
+                rgba_data.push(a);
+            }
+        }
+
+        let img_buf = image::RgbaImage::from_raw(width, height, rgba_data).ok_or_else(|| {
+            ConversionError::ConversionFailed("Failed to create image from JXL".to_string())
         })?;
 
         Ok(DynamicImage::ImageRgba8(img_buf))
@@ -158,20 +292,88 @@ impl ImageConverter {
                     )
                     .map_err(|e| ConversionError::WriteError(e.to_string()))?;
             }
-            OutputFormat::Image(ImageFormat::Svg) => {
-                return Err(ConversionError::UnsupportedOutputFormat(
-                    "SVG output is not supported".to_string(),
-                ));
-            }
             OutputFormat::Image(ImageFormat::Tga) => {
                 img.save(output)?;
             }
             OutputFormat::Image(ImageFormat::Qoi) => {
                 img.save(output)?;
             }
+            OutputFormat::Image(ImageFormat::Hdr) => {
+                let rgb32f = img.to_rgb32f();
+                let file = fs::File::create(output)
+                    .map_err(|e| ConversionError::WriteError(e.to_string()))?;
+                let writer = std::io::BufWriter::new(file);
+                let encoder = image::codecs::hdr::HdrEncoder::new(writer);
+                let pixels: Vec<image::Rgb<f32>> = rgb32f
+                    .pixels()
+                    .map(|p| image::Rgb([p[0], p[1], p[2]]))
+                    .collect();
+                encoder
+                    .encode(&pixels, rgb32f.width() as usize, rgb32f.height() as usize)
+                    .map_err(|e| ConversionError::WriteError(e.to_string()))?;
+            }
+            OutputFormat::Image(ImageFormat::Ppm) => {
+                let rgb = img.to_rgb8();
+                let file = fs::File::create(output)
+                    .map_err(|e| ConversionError::WriteError(e.to_string()))?;
+                let writer = std::io::BufWriter::new(file);
+                let encoder = image::codecs::pnm::PnmEncoder::new(writer)
+                    .with_subtype(image::codecs::pnm::PnmSubtype::Pixmap(
+                        image::codecs::pnm::SampleEncoding::Binary,
+                    ));
+                encoder
+                    .write_image(
+                        rgb.as_raw(),
+                        rgb.width(),
+                        rgb.height(),
+                        image::ExtendedColorType::Rgb8,
+                    )
+                    .map_err(|e| ConversionError::WriteError(e.to_string()))?;
+            }
+            OutputFormat::Image(ImageFormat::Exr) => {
+                let rgb32f = img.to_rgb32f();
+                image::save_buffer(
+                    output,
+                    &rgb32f.as_raw().iter().flat_map(|&f| f.to_ne_bytes()).collect::<Vec<u8>>(),
+                    rgb32f.width(),
+                    rgb32f.height(),
+                    image::ExtendedColorType::Rgb32F,
+                )
+                .map_err(|e| ConversionError::WriteError(e.to_string()))?;
+            }
+            OutputFormat::Image(ImageFormat::Svg) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "SVG output is not supported".to_string(),
+                ));
+            }
             OutputFormat::Image(ImageFormat::Dds) => {
                 return Err(ConversionError::UnsupportedOutputFormat(
                     "DDS output is not supported".to_string(),
+                ));
+            }
+            OutputFormat::Image(ImageFormat::Psd) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "PSD output is not supported".to_string(),
+                ));
+            }
+            OutputFormat::Image(ImageFormat::Heif) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "HEIF output is not supported".to_string(),
+                ));
+            }
+            OutputFormat::Image(ImageFormat::RawPhoto) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "Raw photo output is not supported".to_string(),
+                ));
+            }
+            OutputFormat::Image(ImageFormat::Jxl) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "JPEG XL output is not yet supported".to_string(),
+                ));
+            }
+            OutputFormat::Image(ImageFormat::Jp2) => {
+                return Err(ConversionError::UnsupportedOutputFormat(
+                    "JPEG 2000 output is not supported".to_string(),
                 ));
             }
             OutputFormat::Document(DocumentFormat::Pdf) => {
@@ -226,12 +428,15 @@ impl Converter for ImageConverter {
     fn supported_input_formats(&self) -> &[&str] {
         &[
             "png", "jpg", "jpeg", "gif", "bmp", "ico", "tif", "tiff", "webp", "avif", "svg",
-            "tga", "dds", "qoi",
+            "tga", "dds", "qoi", "hdr", "ppm", "pgm", "pbm", "exr", "psd",
         ]
     }
 
     fn supported_output_formats(&self) -> &[&str] {
-        &["png", "jpg", "gif", "bmp", "ico", "tiff", "webp", "avif", "tga", "qoi", "pdf"]
+        &[
+            "png", "jpg", "gif", "bmp", "ico", "tiff", "webp", "avif", "tga", "qoi", "hdr",
+            "ppm", "exr", "pdf",
+        ]
     }
 
     fn convert(

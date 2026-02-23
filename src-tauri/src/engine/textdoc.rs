@@ -267,6 +267,151 @@ impl TextDocConverter {
         Ok(())
     }
 
+    fn read_rtf_text(&self, path: &Path) -> Result<Vec<String>, ConversionError> {
+        let content = fs::read_to_string(path)
+            .map_err(|e| ConversionError::ReadError(e.to_string()))?;
+
+        let mut paragraphs = Vec::new();
+        let mut current = String::new();
+        let mut brace_depth: i32 = 0;
+        let mut skip_group = false;
+        let mut chars = content.chars().peekable();
+
+        while let Some(ch) = chars.next() {
+            match ch {
+                '{' => {
+                    brace_depth += 1;
+                    if skip_group {
+                        continue;
+                    }
+                }
+                '}' => {
+                    brace_depth -= 1;
+                    if skip_group && brace_depth <= 1 {
+                        skip_group = false;
+                    }
+                    continue;
+                }
+                '\\' => {
+                    if skip_group {
+                        while chars.peek().map_or(false, |c| c.is_ascii_alphabetic()) {
+                            chars.next();
+                        }
+                        if chars.peek() == Some(&' ') {
+                            chars.next();
+                        }
+                        continue;
+                    }
+
+                    let mut control_word = String::new();
+                    while chars.peek().map_or(false, |c| c.is_ascii_alphabetic()) {
+                        control_word.push(chars.next().unwrap());
+                    }
+
+                    match control_word.as_str() {
+                        "par" | "line" => {
+                            paragraphs.push(current.clone());
+                            current.clear();
+                        }
+                        "tab" => current.push('\t'),
+                        "fonttbl" | "colortbl" | "stylesheet" | "info" | "pict" => {
+                            skip_group = true;
+                        }
+                        _ => {}
+                    }
+
+                    if chars.peek() == Some(&' ') {
+                        chars.next();
+                    }
+                    continue;
+                }
+                '\n' | '\r' => continue,
+                _ => {
+                    if !skip_group {
+                        current.push(ch);
+                    }
+                }
+            }
+        }
+
+        if !current.is_empty() {
+            paragraphs.push(current);
+        }
+
+        Ok(paragraphs)
+    }
+
+    fn read_epub_text(&self, path: &Path) -> Result<Vec<String>, ConversionError> {
+        let file = fs::File::open(path)?;
+        let mut archive = ZipArchive::new(file)?;
+
+        let mut all_paragraphs = Vec::new();
+
+        for i in 0..archive.len() {
+            let mut entry = archive.by_index(i)
+                .map_err(|e| ConversionError::ReadError(format!("EPUB entry error: {}", e)))?;
+
+            let name = entry.name().to_string();
+            if !name.ends_with(".xhtml") && !name.ends_with(".html") && !name.ends_with(".htm") {
+                continue;
+            }
+
+            let mut content = String::new();
+            entry.read_to_string(&mut content)?;
+
+            let mut reader = XmlReader::from_reader(content.as_bytes());
+            reader.config_mut().trim_text(true);
+
+            let mut in_text = false;
+            let mut current_text = String::new();
+            let mut buf = Vec::new();
+
+            loop {
+                match reader.read_event_into(&mut buf) {
+                    Ok(Event::Start(ref e)) | Ok(Event::Empty(ref e)) => {
+                        let name_bytes = e.name().as_ref().to_vec();
+                        let local = local_name(&name_bytes);
+                        if local == b"p" || local == b"h1" || local == b"h2" || local == b"h3"
+                            || local == b"h4" || local == b"h5" || local == b"h6"
+                            || local == b"li" || local == b"div"
+                        {
+                            in_text = true;
+                            current_text.clear();
+                        }
+                    }
+                    Ok(Event::Text(ref e)) => {
+                        if in_text {
+                            if let Ok(t) = e.unescape() {
+                                current_text.push_str(&t);
+                            }
+                        }
+                    }
+                    Ok(Event::End(ref e)) => {
+                        let name_bytes = e.name().as_ref().to_vec();
+                        let local = local_name(&name_bytes);
+                        if (local == b"p" || local == b"h1" || local == b"h2" || local == b"h3"
+                            || local == b"h4" || local == b"h5" || local == b"h6"
+                            || local == b"li" || local == b"div")
+                            && in_text
+                        {
+                            let trimmed = current_text.trim().to_string();
+                            if !trimmed.is_empty() {
+                                all_paragraphs.push(trimmed);
+                            }
+                            in_text = false;
+                        }
+                    }
+                    Ok(Event::Eof) => break,
+                    Err(_) => break,
+                    _ => {}
+                }
+                buf.clear();
+            }
+        }
+
+        Ok(all_paragraphs)
+    }
+
     fn read_paragraphs(&self, path: &Path) -> Result<Vec<String>, ConversionError> {
         let ext = path
             .extension()
@@ -278,6 +423,8 @@ impl TextDocConverter {
             "docx" => self.read_docx_text(path),
             "odt" => self.read_odt_text(path),
             "txt" => self.read_txt(path),
+            "rtf" => self.read_rtf_text(path),
+            "epub" => self.read_epub_text(path),
             _ => Err(ConversionError::UnsupportedInputFormat(ext)),
         }
     }
@@ -285,7 +432,7 @@ impl TextDocConverter {
 
 impl Converter for TextDocConverter {
     fn supported_input_formats(&self) -> &[&str] {
-        &["docx", "odt", "txt"]
+        &["docx", "odt", "txt", "rtf", "epub"]
     }
 
     fn supported_output_formats(&self) -> &[&str] {

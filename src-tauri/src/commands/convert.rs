@@ -3,8 +3,9 @@ use std::path::Path;
 use tauri::AppHandle;
 
 use crate::engine::{
-    AudioFormat, BatchConversionRequest, BatchConversionResult, ConversionError, DocumentFormat,
-    FileInfo, ImageFormat, OutputFormatInfo, file_category, resolve_format,
+    ArchiveFormat, AudioFormat, BatchConversionRequest, BatchConversionResult, ConversionError,
+    DataFormat, DocumentFormat, FileInfo, ImageFormat, OutputFormatInfo, VideoFormat, file_category,
+    resolve_format,
 };
 use crate::orchestrator::run_batch_conversion;
 
@@ -214,7 +215,80 @@ pub fn get_output_formats() -> Vec<OutputFormatInfo> {
         });
     }
 
+    for f in VideoFormat::output_formats() {
+        formats.push(OutputFormatInfo {
+            format: f.extension().to_string(),
+            extension: f.extension().to_string(),
+            label: f.extension().to_uppercase(),
+            supports_quality: f.supports_quality(),
+            category: "video".to_string(),
+        });
+    }
+
+    for f in DataFormat::output_formats() {
+        formats.push(OutputFormatInfo {
+            format: f.extension().to_string(),
+            extension: f.extension().to_string(),
+            label: f.extension().to_uppercase(),
+            supports_quality: f.supports_quality(),
+            category: "data".to_string(),
+        });
+    }
+
+    for f in ArchiveFormat::output_formats() {
+        formats.push(OutputFormatInfo {
+            format: f.format_token().to_string(),
+            extension: f.extension().to_string(),
+            label: f.extension().to_uppercase(),
+            supports_quality: f.supports_quality(),
+            category: "archive".to_string(),
+        });
+    }
+
     formats
+}
+
+#[tauri::command]
+pub fn get_available_features() -> Vec<String> {
+    #[allow(unused_mut)]
+    let mut features = vec![
+        "image".to_string(),
+        "audio-wav".to_string(),
+        "audio-flac".to_string(),
+        "audio-aiff".to_string(),
+        "documents".to_string(),
+        "data".to_string(),
+        "archives".to_string(),
+    ];
+
+    #[cfg(feature = "mp3-encode")]
+    features.push("mp3-encode".to_string());
+
+    #[cfg(feature = "vorbis-encode")]
+    features.push("vorbis-encode".to_string());
+
+    #[cfg(feature = "opus-encode")]
+    features.push("opus-encode".to_string());
+
+    #[cfg(feature = "ffmpeg")]
+    features.push("ffmpeg".to_string());
+
+    #[cfg(feature = "heif")]
+    features.push("heif".to_string());
+
+    #[cfg(feature = "jxl")]
+    features.push("jxl".to_string());
+
+    #[cfg(feature = "raw-photos")]
+    features.push("raw-photos".to_string());
+
+    #[cfg(feature = "jpeg2000")]
+    features.push("jpeg2000".to_string());
+
+    #[cfg(feature = "rar")]
+    features.push("rar".to_string());
+
+    features
 }
 
 #[tauri::command]

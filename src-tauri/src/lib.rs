@@ -24,6 +24,7 @@ pub fn run() {
             commands::convert::convert_files,
             commands::convert::scan_directory,
             commands::convert::open_path,
+            commands::convert::get_available_features,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

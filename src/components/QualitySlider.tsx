@@ -1,21 +1,16 @@
-import { LOSSY_FORMATS } from "@/types/conversion";
 import { Slider } from "@/components/ui/slider";
 
 interface QualitySliderProps {
-  format: string;
   quality: number;
   onChange: (quality: number) => void;
   disabled: boolean;
 }
 
 export default function QualitySlider({
-  format,
   quality,
   onChange,
   disabled,
 }: QualitySliderProps) {
-  if (!LOSSY_FORMATS.includes(format)) return null;
-
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">

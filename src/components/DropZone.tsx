@@ -3,7 +3,7 @@ import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { open } from "@tauri-apps/plugin-dialog";
 import { Upload, Plus, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getAllSupportedExtensions, getFileCategory, CATEGORY_LABELS, CATEGORY_COLORS } from "@/types/conversion";
+import { getAllSupportedExtensions, getFileCategory } from "@/types/conversion";
 import type { FileCategory } from "@/types/conversion";
 
 interface DropZoneProps {
@@ -11,12 +11,12 @@ interface DropZoneProps {
   onFolderAdded: () => void;
   hasFiles: boolean;
   disabled: boolean;
-  detectedCategory: FileCategory | null;
+  presentCategories: FileCategory[];
 }
 
 const ALL_EXTENSIONS = getAllSupportedExtensions();
 
-export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabled, detectedCategory }: DropZoneProps) {
+export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabled }: DropZoneProps) {
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
@@ -50,34 +50,16 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
     const result = await open({
       multiple: true,
       filters: [
-        {
-          name: "All supported",
-          extensions: ALL_EXTENSIONS,
-        },
-        {
-          name: "Images",
-          extensions: ["png", "jpg", "jpeg", "gif", "bmp", "ico", "tif", "tiff", "webp", "avif", "svg", "tga", "qoi"],
-        },
-        {
-          name: "Audio",
-          extensions: ["mp3", "wav", "flac", "ogg", "aac", "aiff", "m4a"],
-        },
-        {
-          name: "Documents",
-          extensions: ["pdf"],
-        },
-        {
-          name: "Text Documents",
-          extensions: ["docx", "odt", "txt"],
-        },
-        {
-          name: "Spreadsheets",
-          extensions: ["xlsx", "xls", "ods", "csv"],
-        },
-        {
-          name: "Presentations",
-          extensions: ["pptx", "odp"],
-        },
+        { name: "All supported", extensions: ALL_EXTENSIONS },
+        { name: "Images", extensions: ["png", "jpg", "jpeg", "gif", "bmp", "ico", "tif", "tiff", "webp", "avif", "svg", "tga", "qoi", "hdr", "ppm", "pgm", "pbm", "exr", "psd", "heif", "heic", "jxl", "jp2", "j2k", "dds", "cr2", "nef", "arw", "dng", "orf", "rw2"] },
+        { name: "Audio", extensions: ["mp3", "wav", "flac", "ogg", "aac", "aiff", "aif", "m4a", "alac", "opus", "wma", "ac3", "dts"] },
+        { name: "Video", extensions: ["mp4", "avi", "mkv", "mov", "webm", "flv", "wmv", "mpeg", "mpg", "ts", "3gp", "m4v", "vob"] },
+        { name: "Documents", extensions: ["pdf"] },
+        { name: "Text Documents", extensions: ["docx", "odt", "txt", "rtf", "epub"] },
+        { name: "Spreadsheets", extensions: ["xlsx", "xls", "ods", "csv"] },
+        { name: "Presentations", extensions: ["pptx", "odp"] },
+        { name: "Data", extensions: ["json", "yaml", "yml", "toml", "xml", "md", "html", "htm"] },
+        { name: "Archives", extensions: ["zip", "tar", "gz", "tgz", "bz2", "xz", "7z", "rar", "zst"] },
       ],
     });
     if (result && result.length > 0) {
@@ -110,11 +92,6 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
           <FolderOpen className="size-4" />
           Add folder
         </Button>
-        {detectedCategory && (
-          <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${CATEGORY_COLORS[detectedCategory]}`}>
-            {CATEGORY_LABELS[detectedCategory]}
-          </span>
-        )}
       </div>
     );
   }
@@ -154,13 +131,6 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
         <FolderOpen className="size-4" />
         or select a folder
       </Button>
-      <div className="flex flex-wrap justify-center gap-x-3 gap-y-1 text-xs text-muted-foreground/60">
-        <span>Images: PNG, JPG, WebP, GIF, BMP, TIFF, AVIF, ICO, SVG</span>
-        <span>Audio: MP3, WAV, FLAC, OGG, AAC</span>
-        <span>Documents: PDF, DOCX, ODT, TXT</span>
-        <span>Spreadsheets: XLSX, ODS, CSV</span>
-        <span>Presentations: PPTX, ODP</span>
-      </div>
     </div>
   );
 }

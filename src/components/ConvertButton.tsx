@@ -71,10 +71,9 @@ export default function ConvertButton({
       </Button>
       {fileCount > 0 && !isConverting && (
         <Button
-          variant="ghost"
+          variant="destructive"
           onClick={onClear}
           size="lg"
-          title="Clear all files"
         >
           <Trash2 className="size-4" />
         </Button>

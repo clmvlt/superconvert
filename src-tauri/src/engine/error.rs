@@ -55,3 +55,27 @@ impl From<csv::Error> for ConversionError {
         ConversionError::ConversionFailed(format!("CSV error: {}", e))
     }
 }
+
+impl From<serde_json::Error> for ConversionError {
+    fn from(e: serde_json::Error) -> Self {
+        ConversionError::ConversionFailed(format!("JSON error: {}", e))
+    }
+}
+
+impl From<serde_yaml::Error> for ConversionError {
+    fn from(e: serde_yaml::Error) -> Self {
+        ConversionError::ConversionFailed(format!("YAML error: {}", e))
+    }
+}
+
+impl From<toml::de::Error> for ConversionError {
+    fn from(e: toml::de::Error) -> Self {
+        ConversionError::ConversionFailed(format!("TOML parse error: {}", e))
+    }
+}
+
+impl From<toml::ser::Error> for ConversionError {
+    fn from(e: toml::ser::Error) -> Self {
+        ConversionError::ConversionFailed(format!("TOML serialize error: {}", e))
+    }
+}

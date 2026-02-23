@@ -38,3 +38,7 @@ export async function onConversionProgress(
     callback(event.payload);
   });
 }
+
+export async function getAvailableFeatures(): Promise<string[]> {
+  return invoke<string[]>("get_available_features");
+}

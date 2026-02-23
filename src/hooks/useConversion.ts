@@ -7,7 +7,7 @@ import type {
   JobResult,
   FileCategory,
 } from "@/types/conversion";
-import { getFileCategory, getOutputFormats, LOSSY_FORMATS } from "@/types/conversion";
+import { getFileCategory, getOutputFormats, LOSSY_FORMATS, getFileExtension } from "@/types/conversion";
 import {
   getFilesInfo,
   convertFiles,
@@ -18,9 +18,14 @@ import {
 import { open } from "@tauri-apps/plugin-dialog";
 import { generateId } from "@/lib/utils";
 
+const CATEGORY_ORDER: FileCategory[] = [
+  "image", "audio", "video", "document", "textdoc",
+  "spreadsheet", "presentation", "data", "archive",
+];
+
 interface ConversionState {
   files: ConversionFile[];
-  outputFormat: string;
+  outputFormats: Partial<Record<FileCategory, string>>;
   quality: number;
   outputFolder: string;
   isConverting: boolean;
@@ -32,12 +37,14 @@ type Action =
   | { type: "ADD_FILES"; files: FileInfo[] }
   | { type: "REMOVE_FILE"; id: string }
   | { type: "CLEAR_FILES" }
-  | { type: "SET_FORMAT"; format: string }
+  | { type: "SET_FORMAT"; category: FileCategory; format: string }
   | { type: "SET_QUALITY"; quality: number }
   | { type: "SET_OUTPUT_FOLDER"; folder: string }
   | { type: "START_CONVERSION" }
+  | { type: "START_SINGLE_CONVERSION"; id: string }
   | { type: "UPDATE_PROGRESS"; event: ProgressEvent }
   | { type: "CONVERSION_COMPLETE"; results: JobResult[] }
+  | { type: "SINGLE_CONVERSION_COMPLETE"; result: JobResult }
   | { type: "RESET_CONVERSION" };
 
 function resolveCategory(ext: string): FileCategory {
@@ -61,38 +68,37 @@ function reducer(state: ConversionState, action: Action): ConversionState {
         }));
 
       const allFiles = [...state.files, ...newFiles];
+      const outputFormats = { ...state.outputFormats };
 
-      const categories = new Set(allFiles.map((f) => f.category));
-      let { outputFormat } = state;
-      if (categories.size === 1) {
-        const cat = [...categories][0];
-        const validFormats = getOutputFormats(cat);
-        if (!validFormats.includes(outputFormat)) {
-          outputFormat = validFormats[0];
+      const categoriesPresent = new Set(allFiles.map((f) => f.category));
+      for (const cat of categoriesPresent) {
+        if (!outputFormats[cat]) {
+          outputFormats[cat] = getOutputFormats(cat)[0];
         }
       }
 
-      return { ...state, files: allFiles, outputFormat, conversionDone: false };
+      return { ...state, files: allFiles, outputFormats, conversionDone: false };
     }
     case "REMOVE_FILE": {
       const files = state.files.filter((f) => f.id !== action.id);
+      const outputFormats = { ...state.outputFormats };
 
-      const categories = new Set(files.map((f) => f.category));
-      let { outputFormat } = state;
-      if (files.length > 0 && categories.size === 1) {
-        const cat = [...categories][0];
-        const validFormats = getOutputFormats(cat);
-        if (!validFormats.includes(outputFormat)) {
-          outputFormat = validFormats[0];
+      const remainingCategories = new Set(files.map((f) => f.category));
+      for (const cat of Object.keys(outputFormats) as FileCategory[]) {
+        if (!remainingCategories.has(cat)) {
+          delete outputFormats[cat];
         }
       }
 
-      return { ...state, files, outputFormat };
+      return { ...state, files, outputFormats };
     }
     case "CLEAR_FILES":
-      return { ...state, files: [], globalProgress: 0, conversionDone: false, outputFormat: "png" };
+      return { ...state, files: [], globalProgress: 0, conversionDone: false, outputFormats: {} };
     case "SET_FORMAT":
-      return { ...state, outputFormat: action.format };
+      return {
+        ...state,
+        outputFormats: { ...state.outputFormats, [action.category]: action.format },
+      };
     case "SET_QUALITY":
       return { ...state, quality: action.quality };
     case "SET_OUTPUT_FOLDER":
@@ -110,6 +116,15 @@ function reducer(state: ConversionState, action: Action): ConversionState {
           error: null,
           outputPath: null,
         })),
+      };
+    case "START_SINGLE_CONVERSION":
+      return {
+        ...state,
+        files: state.files.map((f) =>
+          f.id === action.id
+            ? { ...f, progress: 0, status: "converting" as JobStatus, error: null, outputPath: null }
+            : f
+        ),
       };
     case "UPDATE_PROGRESS": {
       const { event } = action;
@@ -139,6 +154,17 @@ function reducer(state: ConversionState, action: Action): ConversionState {
       });
       return { ...state, files, isConverting: false, conversionDone: true };
     }
+    case "SINGLE_CONVERSION_COMPLETE": {
+      const { result } = action;
+      const files = state.files.map((f) => {
+        if (f.id !== result.job_id) return f;
+        if (result.success && result.output_path) {
+          return { ...f, status: "done" as JobStatus, progress: 1, outputPath: result.output_path };
+        }
+        return { ...f, status: "error" as JobStatus, error: result.error ?? "Unknown error" };
+      });
+      return { ...state, files };
+    }
     case "RESET_CONVERSION":
       return {
         ...state,
@@ -159,7 +185,7 @@ function reducer(state: ConversionState, action: Action): ConversionState {
 
 const initialState: ConversionState = {
   files: [],
-  outputFormat: "png",
+  outputFormats: {},
   quality: 85,
   outputFolder: "",
   isConverting: false,
@@ -179,29 +205,25 @@ export function useConversion() {
     };
   }, []);
 
-  const detectedCategory = useMemo<FileCategory | null>(() => {
-    if (state.files.length === 0) return null;
-    const categories = new Set(state.files.map((f) => f.category));
-    if (categories.size === 1) return [...categories][0];
-    return null;
+  const presentCategories = useMemo<FileCategory[]>(() => {
+    if (state.files.length === 0) return [];
+    const cats = new Set(state.files.map((f) => f.category));
+    return CATEGORY_ORDER.filter((c) => cats.has(c));
   }, [state.files]);
 
-  const availableFormats = useMemo<string[]>(() => {
-    if (detectedCategory) {
-      return getOutputFormats(detectedCategory);
+  const categoryFormats = useMemo<Partial<Record<FileCategory, string[]>>>(() => {
+    const result: Partial<Record<FileCategory, string[]>> = {};
+    for (const cat of presentCategories) {
+      result[cat] = getOutputFormats(cat);
     }
-    if (state.files.length === 0) {
-      return getOutputFormats("image");
-    }
-    const categories = new Set(state.files.map((f) => f.category));
-    const formats = new Set<string>();
-    for (const cat of categories) {
-      for (const fmt of getOutputFormats(cat)) {
-        formats.add(fmt);
-      }
-    }
-    return [...formats];
-  }, [state.files, detectedCategory]);
+    return result;
+  }, [presentCategories]);
+
+  const hasLossyFormat = useMemo<boolean>(() => {
+    return Object.values(state.outputFormats).some((fmt) =>
+      fmt ? LOSSY_FORMATS.includes(fmt) : false
+    );
+  }, [state.outputFormats]);
 
   const addFiles = useCallback(async (paths: string[]) => {
     const filesInfo = await getFilesInfo(paths);
@@ -223,8 +245,8 @@ export function useConversion() {
     dispatch({ type: "CLEAR_FILES" });
   }, []);
 
-  const setFormat = useCallback((format: string) => {
-    dispatch({ type: "SET_FORMAT", format });
+  const setFormat = useCallback((category: FileCategory, format: string) => {
+    dispatch({ type: "SET_FORMAT", category, format });
   }, []);
 
   const setQuality = useCallback((quality: number) => {
@@ -234,6 +256,48 @@ export function useConversion() {
   const setOutputFolder = useCallback((folder: string) => {
     dispatch({ type: "SET_OUTPUT_FOLDER", folder });
   }, []);
+
+  const convertSingleFile = useCallback(async (fileId: string, format: string) => {
+    const file = state.files.find((f) => f.id === fileId);
+    if (!file) return;
+
+    dispatch({ type: "START_SINGLE_CONVERSION", id: fileId });
+
+    const unlisten = await onConversionProgress((event) => {
+      dispatch({ type: "UPDATE_PROGRESS", event });
+    });
+
+    const inputPath = file.path;
+    const dir = state.outputFolder || inputPath.substring(0, inputPath.lastIndexOf("\\") !== -1 ? inputPath.lastIndexOf("\\") : inputPath.lastIndexOf("/"));
+    const baseName = file.name.substring(0, file.name.lastIndexOf("."));
+    const ext = getFileExtension(format);
+
+    let outputPath = `${dir}\\${baseName}.${ext}`;
+    if (outputPath === inputPath) {
+      outputPath = `${dir}\\${baseName}_converted.${ext}`;
+    }
+
+    const jobs = [{
+      id: file.id,
+      input_path: inputPath,
+      output_path: outputPath,
+      options: {
+        output_format: format,
+        quality: LOSSY_FORMATS.includes(format) ? state.quality : null,
+      },
+    }];
+
+    try {
+      const result = await convertFiles({ jobs });
+      if (result.results.length > 0) {
+        dispatch({ type: "SINGLE_CONVERSION_COMPLETE", result: result.results[0] });
+      }
+    } catch {
+      dispatch({ type: "SINGLE_CONVERSION_COMPLETE", result: { job_id: fileId, success: false, output_path: null, error: "Conversion failed" } });
+    } finally {
+      unlisten();
+    }
+  }, [state.files, state.quality, state.outputFolder]);
 
   const startConversion = useCallback(async () => {
     if (state.files.length === 0) return;
@@ -249,7 +313,8 @@ export function useConversion() {
       const inputPath = file.path;
       const dir = state.outputFolder || inputPath.substring(0, inputPath.lastIndexOf("\\") !== -1 ? inputPath.lastIndexOf("\\") : inputPath.lastIndexOf("/"));
       const baseName = file.name.substring(0, file.name.lastIndexOf("."));
-      const ext = state.outputFormat;
+      const fileOutputFormat = state.outputFormats[file.category] ?? getOutputFormats(file.category)[0];
+      const ext = getFileExtension(fileOutputFormat);
 
       let outputPath = `${dir}\\${baseName}.${ext}`;
       if (outputPath === inputPath) {
@@ -261,10 +326,8 @@ export function useConversion() {
         input_path: inputPath,
         output_path: outputPath,
         options: {
-          output_format: state.outputFormat,
-          quality: LOSSY_FORMATS.includes(state.outputFormat)
-            ? state.quality
-            : null,
+          output_format: fileOutputFormat,
+          quality: LOSSY_FORMATS.includes(fileOutputFormat) ? state.quality : null,
         },
       };
     });
@@ -280,7 +343,7 @@ export function useConversion() {
         unlistenRef.current = null;
       }
     }
-  }, [state.files, state.outputFormat, state.quality, state.outputFolder]);
+  }, [state.files, state.outputFormats, state.quality, state.outputFolder]);
 
   const openFile = useCallback(async (path: string) => {
     await openPath(path);
@@ -303,9 +366,17 @@ export function useConversion() {
   }, []);
 
   return {
-    ...state,
-    detectedCategory,
-    availableFormats,
+    files: state.files,
+    outputFormats: state.outputFormats,
+    quality: state.quality,
+    outputFolder: state.outputFolder,
+    isConverting: state.isConverting,
+    conversionDone: state.conversionDone,
+    globalProgress: state.globalProgress,
+    presentCategories,
+    categoryFormats,
+    hasLossyFormat,
+    convertSingleFile,
     addFiles,
     addFolder,
     removeFile,

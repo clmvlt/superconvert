@@ -4,10 +4,13 @@ use rayon::prelude::*;
 use tauri::{AppHandle, Emitter};
 
 use crate::engine::{
-    AudioConverter, BatchConversionRequest, BatchConversionResult, Converter, ImageConverter,
-    JobResult, JobStatus, PdfConverter, PresentationConverter, ProgressEvent, SpreadsheetConverter,
-    TextDocConverter, file_category,
+    ArchiveConverter, AudioConverter, BatchConversionRequest, BatchConversionResult, Converter,
+    DataConverter, ImageConverter, JobResult, JobStatus, PdfConverter, PresentationConverter,
+    ProgressEvent, SpreadsheetConverter, TextDocConverter, file_category,
 };
+
+#[cfg(feature = "ffmpeg")]
+use crate::engine::VideoConverter;
 
 fn dispatch_converter(input_ext: &str) -> Arc<dyn Converter> {
     match file_category(input_ext) {
@@ -16,6 +19,10 @@ fn dispatch_converter(input_ext: &str) -> Arc<dyn Converter> {
         Some("textdoc") => Arc::new(TextDocConverter::new()),
         Some("spreadsheet") => Arc::new(SpreadsheetConverter::new()),
         Some("presentation") => Arc::new(PresentationConverter::new()),
+        Some("data") => Arc::new(DataConverter::new()),
+        Some("archive") => Arc::new(ArchiveConverter::new()),
+        #[cfg(feature = "ffmpeg")]
+        Some("video") => Arc::new(VideoConverter::new()),
         _ => Arc::new(ImageConverter::new()),
     }
 }

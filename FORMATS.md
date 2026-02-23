@@ -24,13 +24,6 @@
 | JPEG XL | .jxl | ✅ | ✅ | 5 | `jxl-oxide` | Successeur JPEG, très performant |
 | JPEG 2000 | .jp2 .j2k | ✅ | ❌ | 5 | `openjpeg-sys` | Médical, archives |
 
-## Images Vectorielles
-
-| Format | Extensions | Entrée | Sortie | Phase | Crate Rust | Notes |
-|--------|-----------|--------|--------|-------|------------|-------|
-| SVG | .svg .svgz | ✅ | ❌ | 2 | `resvg` + `usvg` | Vectoriel → raster uniquement |
-| PDF (image) | .pdf | ❌ | ✅ | 2 | `printpdf` | Génération depuis image |
-
 ## Audio
 
 | Format | Extensions | Entrée | Sortie | Phase | Crate Rust | Notes |
@@ -99,53 +92,3 @@
 | 7Z | .7z | ✅ | ✅ | 5 | `sevenz-rust` | 7-Zip |
 | RAR | .rar | ✅ | ❌ | 5 | `unrar` | Extraction uniquement (propriétaire) |
 | ZSTD | .zst .tar.zst | ✅ | ✅ | 5 | `zstd` | Compression moderne rapide |
-
-## Polices
-
-| Format | Extensions | Entrée | Sortie | Phase | Crate Rust | Notes |
-|--------|-----------|--------|--------|-------|------------|-------|
-| TTF | .ttf | ✅ | ✅ | 5 | `ttf-parser` + `woff` | TrueType |
-| OTF | .otf | ✅ | ✅ | 5 | `ttf-parser` | OpenType |
-| WOFF | .woff | ✅ | ✅ | 5 | `woff` | Web Open Font Format |
-| WOFF2 | .woff2 | ✅ | ✅ | 5 | `woff2` | WOFF compressé (Brotli) |
-
-## 3D / CAO (bonus)
-
-| Format | Extensions | Entrée | Sortie | Phase | Crate Rust | Notes |
-|--------|-----------|--------|--------|-------|------------|-------|
-| STL | .stl | ✅ | ✅ | 5+ | `stl_io` | Impression 3D |
-| OBJ | .obj | ✅ | ✅ | 5+ | `tobj` | Wavefront 3D |
-| GLTF/GLB | .gltf .glb | ✅ | ✅ | 5+ | `gltf` | Standard web 3D |
-
-## Matrice de Conversion Prioritaire (Phase 1-2)
-
-```
-        → PNG  JPG  WebP  BMP  GIF  TIFF  AVIF  ICO  PDF
-PNG       -    ✅   ✅    ✅   ✅   ✅    ✅    ✅   ✅
-JPG      ✅    -    ✅    ✅   ✅   ✅    ✅    ✅   ✅
-WebP     ✅   ✅     -    ✅   ✅   ✅    ✅    ✅   ✅
-BMP      ✅   ✅    ✅     -   ✅   ✅    ✅    ✅   ✅
-GIF      ✅   ✅    ✅    ✅    -   ✅    ✅    ❌   ❌
-TIFF     ✅   ✅    ✅    ✅   ✅    -    ✅    ✅   ✅
-AVIF     ✅   ✅    ✅    ✅   ✅   ✅     -    ✅   ✅
-ICO      ✅   ✅    ✅    ✅   ❌   ❌    ❌    -    ❌
-SVG      ✅   ✅    ✅    ✅   ❌   ✅    ✅    ✅   ✅
-TGA      ✅   ✅    ✅    ✅   ✅   ✅    ✅    ❌   ❌
-QOI      ✅   ✅    ✅    ✅   ✅   ✅    ✅    ❌   ❌
-DDS      ✅   ✅    ✅    ✅   ❌   ❌    ❌    ❌   ❌
-```
-
-## Résumé par Catégorie
-
-| Catégorie | Formats en entrée | Formats en sortie | Phase |
-|-----------|------------------|-------------------|-------|
-| Images raster | 18 | 13 | 1-2-5 |
-| Images vectorielles | 1 (SVG) | 0 (raster only) | 2 |
-| Audio | 11 | 7 | 3-4 |
-| Vidéo | 13 | 11 | 4 |
-| Documents | 16 | 10 | 4-5 |
-| Archives | 8 | 7 | 5 |
-| Polices | 4 | 4 | 5 |
-| 3D | 3 | 3 | 5+ |
-
-**Total : ~74 formats en entrée, ~55 formats en sortie**
