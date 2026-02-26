@@ -3,7 +3,7 @@ members = ["engine", "cli"]
 
 [package]
 name = "superconvert"
-version = "0.0.7"
+version = "0.0.8"
 description = "SuperConvert - A fast cross-platform file converter"
 authors = ["cleme"]
 license = "MIT"
