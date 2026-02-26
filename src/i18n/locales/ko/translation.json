@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "여기에 파일을 놓으세요",
+    "dragAndDrop": "파일을 끌어다 놓으세요",
+    "orClickToBrowse": "또는 클릭하여 찾아보기",
+    "addFiles": "파일 추가",
+    "addFolder": "폴더 추가",
+    "orSelectFolder": "또는 폴더 선택",
+    "filterAllSupported": "모든 지원 형식",
+    "filterImages": "이미지",
+    "filterAudio": "오디오",
+    "filterVideo": "비디오",
+    "filterDocuments": "문서",
+    "filterTextDocuments": "텍스트 문서",
+    "filterSpreadsheets": "스프레드시트",
+    "filterPresentations": "프레젠테이션",
+    "filterData": "데이터",
+    "filterArchives": "압축 파일"
+  },
+  "fileList": {
+    "fileCount_one": "파일 {{count}}개",
+    "fileCount_other": "파일 {{count}}개",
+    "openFile": "파일 열기",
+    "openFolder": "폴더 열기"
+  },
+  "formatPicker": {
+    "outputFormat": "출력 형식"
+  },
+  "quality": {
+    "label": "품질"
+  },
+  "outputFolder": {
+    "title": "출력 폴더",
+    "placeholder": "원본과 동일 (기본값)"
+  },
+  "deleteOriginals": {
+    "label": "원본 삭제",
+    "description": "변환 후 원본 파일이 삭제됩니다"
+  },
+  "convert": {
+    "openOutputFolder": "출력 폴더 열기",
+    "convertAgain": "다시 변환",
+    "clear": "지우기",
+    "converting": "변환 중...",
+    "convertFiles_one": "파일 {{count}}개 변환",
+    "convertFiles_other": "파일 {{count}}개 변환"
+  },
+  "progress": {
+    "complete": "완료",
+    "converting": "변환 중..."
+  },
+  "theme": {
+    "toggleTheme": "테마 전환",
+    "light": "라이트",
+    "dark": "다크",
+    "system": "시스템"
+  },
+  "language": {
+    "label": "언어"
+  },
+  "categories": {
+    "image": "이미지",
+    "audio": "오디오",
+    "video": "비디오",
+    "document": "문서",
+    "spreadsheet": "스프레드시트",
+    "presentation": "프레젠테이션",
+    "data": "데이터",
+    "archive": "압축 파일"
+  },
+  "formatDescriptions": {
+    "png": "무손실, 투명도 지원",
+    "jpg": "손실, 작은 크기",
+    "webp": "최신, 최고 압축",
+    "bmp": "비압축 비트맵",
+    "gif": "애니메이션 지원",
+    "tiff": "고품질, 대용량",
+    "avif": "차세대, 최고 품질",
+    "ico": "Windows 아이콘 (256x256)",
+    "tga": "Targa, 레거시 형식",
+    "qoi": "Quite OK Image, 빠름",
+    "hdr": "Radiance HDR, 높은 다이내믹 레인지",
+    "ppm": "Netpbm, 과학 용도",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (입력)",
+    "heif": "iPhone/Android 사진 (입력)",
+    "jxl": "JPEG XL, 차세대",
+    "jp2": "JPEG 2000, 의료/보관 (입력)",
+    "pdf": "문서 형식",
+    "wav": "비압축 오디오",
+    "mp3": "압축, 범용",
+    "flac": "무손실 오디오",
+    "ogg": "오픈소스, 압축",
+    "aac": "고급 오디오 코덱",
+    "aiff": "Apple 비압축 오디오",
+    "alac": "Apple 무손실 (입력)",
+    "opus": "최고 품질/크기 비율",
+    "wma": "Windows Media Audio (입력)",
+    "ac3": "Dolby Digital (입력)",
+    "dts": "홈시네마 (입력)",
+    "mp4": "범용 비디오, H.264",
+    "avi": "레거시 비디오, 큰 파일",
+    "mkv": "유연한 컨테이너",
+    "mov": "Apple QuickTime",
+    "webm": "웹 비디오, VP9/AV1",
+    "flv": "Flash 비디오 (레거시)",
+    "wmv": "Windows Media Video",
+    "mpeg": "레거시 방송",
+    "ts": "Transport Stream, TV",
+    "3gp": "모바일 레거시",
+    "m4v": "Apple DRM 프리 비디오",
+    "vob": "DVD 비디오 (입력)",
+    "json": "JavaScript Object Notation",
+    "yaml": "YAML 데이터 형식",
+    "toml": "TOML 설정 형식",
+    "xml": "Extensible Markup Language",
+    "md": "Markdown 텍스트",
+    "html": "웹 페이지 형식",
+    "rtf": "Rich Text Format (입력)",
+    "epub": "전자책 형식 (입력)",
+    "txt": "일반 텍스트, 범용",
+    "docx": "Word 문서",
+    "odt": "OpenDocument 텍스트",
+    "xlsx": "Excel 스프레드시트",
+    "ods": "OpenDocument 스프레드시트",
+    "csv": "쉼표로 구분된 값",
+    "pptx": "PowerPoint 프레젠테이션",
+    "odp": "OpenDocument 프레젠테이션",
+    "zip": "가장 일반적인 압축 파일",
+    "tar": "Unix tar 아카이브",
+    "targz": "Gzip 압축 tar",
+    "tarbz2": "Bzip2 압축 tar",
+    "tarxz": "XZ 압축 tar",
+    "7z": "7-Zip, 높은 압축률",
+    "tarzst": "Zstandard 압축 tar",
+    "rar": "RAR 압축 파일 (입력)"
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "ここにファイルをドロップ",
+    "dragAndDrop": "ファイルをドラッグ＆ドロップ",
+    "orClickToBrowse": "またはクリックして参照",
+    "addFiles": "ファイルを追加",
+    "addFolder": "フォルダを追加",
+    "orSelectFolder": "またはフォルダを選択",
+    "filterAllSupported": "すべての対応形式",
+    "filterImages": "画像",
+    "filterAudio": "音声",
+    "filterVideo": "動画",
+    "filterDocuments": "ドキュメント",
+    "filterTextDocuments": "テキスト文書",
+    "filterSpreadsheets": "スプレッドシート",
+    "filterPresentations": "プレゼンテーション",
+    "filterData": "データ",
+    "filterArchives": "アーカイブ"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} ファイル",
+    "fileCount_other": "{{count}} ファイル",
+    "openFile": "ファイルを開く",
+    "openFolder": "フォルダを開く"
+  },
+  "formatPicker": {
+    "outputFormat": "出力形式"
+  },
+  "quality": {
+    "label": "品質"
+  },
+  "outputFolder": {
+    "title": "出力フォルダ",
+    "placeholder": "ソースと同じ（デフォルト）"
+  },
+  "deleteOriginals": {
+    "label": "元ファイルを削除",
+    "description": "変換後にソースファイルが削除されます"
+  },
+  "convert": {
+    "openOutputFolder": "出力フォルダを開く",
+    "convertAgain": "再変換",
+    "clear": "クリア",
+    "converting": "変換中...",
+    "convertFiles_one": "{{count}} ファイルを変換",
+    "convertFiles_other": "{{count}} ファイルを変換"
+  },
+  "progress": {
+    "complete": "完了",
+    "converting": "変換中..."
+  },
+  "theme": {
+    "toggleTheme": "テーマ切替",
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム"
+  },
+  "language": {
+    "label": "言語"
+  },
+  "categories": {
+    "image": "画像",
+    "audio": "音声",
+    "video": "動画",
+    "document": "ドキュメント",
+    "spreadsheet": "スプレッドシート",
+    "presentation": "プレゼンテーション",
+    "data": "データ",
+    "archive": "アーカイブ"
+  },
+  "formatDescriptions": {
+    "png": "可逆圧縮、透過対応",
+    "jpg": "非可逆、小サイズ",
+    "webp": "最新、最高圧縮",
+    "bmp": "非圧縮ビットマップ",
+    "gif": "アニメーション対応",
+    "tiff": "高品質、大容量",
+    "avif": "次世代、最高品質",
+    "ico": "Windowsアイコン (256x256)",
+    "tga": "Targa、レガシー形式",
+    "qoi": "Quite OK Image、高速",
+    "hdr": "Radiance HDR、ハイダイナミックレンジ",
+    "ppm": "Netpbm、科学用途",
+    "exr": "OpenEXR、HDR/VFX",
+    "psd": "Adobe Photoshop（入力）",
+    "heif": "iPhone/Android写真（入力）",
+    "jxl": "JPEG XL、次世代",
+    "jp2": "JPEG 2000、医療/アーカイブ（入力）",
+    "pdf": "ドキュメント形式",
+    "wav": "非圧縮音声",
+    "mp3": "圧縮、汎用",
+    "flac": "可逆圧縮音声",
+    "ogg": "オープンソース、圧縮",
+    "aac": "高度な音声コーデック",
+    "aiff": "Apple非圧縮音声",
+    "alac": "Apple可逆圧縮（入力）",
+    "opus": "最高の品質/サイズ比",
+    "wma": "Windows Media Audio（入力）",
+    "ac3": "Dolby Digital（入力）",
+    "dts": "ホームシネマ（入力）",
+    "mp4": "汎用動画、H.264",
+    "avi": "レガシー動画、大容量",
+    "mkv": "柔軟なコンテナ",
+    "mov": "Apple QuickTime",
+    "webm": "Web動画、VP9/AV1",
+    "flv": "Flash動画（レガシー）",
+    "wmv": "Windows Media Video",
+    "mpeg": "レガシー放送",
+    "ts": "Transport Stream、TV",
+    "3gp": "モバイルレガシー",
+    "m4v": "Apple DRMフリー動画",
+    "vob": "DVD動画（入力）",
+    "json": "JavaScript Object Notation",
+    "yaml": "YAMLデータ形式",
+    "toml": "TOML設定形式",
+    "xml": "Extensible Markup Language",
+    "md": "Markdownテキスト",
+    "html": "Webページ形式",
+    "rtf": "Rich Text Format（入力）",
+    "epub": "電子書籍形式（入力）",
+    "txt": "プレーンテキスト、汎用",
+    "docx": "Word文書",
+    "odt": "OpenDocumentテキスト",
+    "xlsx": "Excelスプレッドシート",
+    "ods": "OpenDocumentスプレッドシート",
+    "csv": "カンマ区切り値",
+    "pptx": "PowerPointプレゼンテーション",
+    "odp": "OpenDocumentプレゼンテーション",
+    "zip": "最も一般的なアーカイブ",
+    "tar": "Unix tarアーカイブ",
+    "targz": "Gzip圧縮tar",
+    "tarbz2": "Bzip2圧縮tar",
+    "tarxz": "XZ圧縮tar",
+    "7z": "7-Zip、高圧縮",
+    "tarzst": "Zstandard圧縮tar",
+    "rar": "RARアーカイブ（入力）"
+  }
+}

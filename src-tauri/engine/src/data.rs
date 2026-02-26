@@ -1,9 +1,9 @@
 use std::fs;
 use std::path::Path;
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::{ConversionOptions, DataFormat, DocumentFormat, OutputFormat};
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::{ConversionOptions, DataFormat, DocumentFormat, OutputFormat};
 
 pub struct DataConverter;
 

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
 interface ProgressBarProps {
@@ -6,6 +7,8 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ progress, isConverting }: ProgressBarProps) {
+  const { t } = useTranslation();
+
   if (!isConverting && progress === 0) return null;
 
   const pct = Math.round(progress * 100);
@@ -15,7 +18,7 @@ export default function ProgressBar({ progress, isConverting }: ProgressBarProps
     <div className="space-y-1.5">
       <div className="flex justify-between text-[11px]">
         <span className="text-muted-foreground/60">
-          {isDone ? "Complete" : "Converting..."}
+          {isDone ? t("progress.complete") : t("progress.converting")}
         </span>
         <span className="text-muted-foreground/60 tabular-nums font-medium">{pct}%</span>
       </div>

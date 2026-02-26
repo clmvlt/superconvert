@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "от dimzou"
+  },
+  "dropzone": {
+    "dropHere": "Перетащите файлы сюда",
+    "dragAndDrop": "Перетащите файлы сюда",
+    "orClickToBrowse": "или нажмите для выбора",
+    "addFiles": "Добавить файлы",
+    "addFolder": "Добавить папку",
+    "orSelectFolder": "или выберите папку",
+    "filterAllSupported": "Все поддерживаемые",
+    "filterImages": "Изображения",
+    "filterAudio": "Аудио",
+    "filterVideo": "Видео",
+    "filterDocuments": "Документы",
+    "filterTextDocuments": "Текстовые документы",
+    "filterSpreadsheets": "Таблицы",
+    "filterPresentations": "Презентации",
+    "filterData": "Данные",
+    "filterArchives": "Архивы"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} файл",
+    "fileCount_other": "{{count}} файлов",
+    "openFile": "Открыть файл",
+    "openFolder": "Открыть папку"
+  },
+  "formatPicker": {
+    "outputFormat": "Формат вывода"
+  },
+  "quality": {
+    "label": "Качество"
+  },
+  "outputFolder": {
+    "title": "Папка вывода",
+    "placeholder": "Как у источника (по умолчанию)"
+  },
+  "deleteOriginals": {
+    "label": "Удалить оригиналы",
+    "description": "Исходные файлы будут удалены после конвертации"
+  },
+  "convert": {
+    "openOutputFolder": "Открыть папку вывода",
+    "convertAgain": "Конвертировать снова",
+    "clear": "Очистить",
+    "converting": "Конвертация...",
+    "convertFiles_one": "Конвертировать {{count}} файл",
+    "convertFiles_other": "Конвертировать {{count}} файлов"
+  },
+  "progress": {
+    "complete": "Завершено",
+    "converting": "Конвертация..."
+  },
+  "theme": {
+    "toggleTheme": "Сменить тему",
+    "light": "Светлая",
+    "dark": "Тёмная",
+    "system": "Системная"
+  },
+  "language": {
+    "label": "Язык"
+  },
+  "categories": {
+    "image": "Изображение",
+    "audio": "Аудио",
+    "video": "Видео",
+    "document": "Документ",
+    "spreadsheet": "Таблица",
+    "presentation": "Презентация",
+    "data": "Данные",
+    "archive": "Архив"
+  },
+  "formatDescriptions": {
+    "png": "Без потерь, прозрачность",
+    "jpg": "С потерями, малый размер",
+    "webp": "Современный, лучшее сжатие",
+    "bmp": "Несжатое растровое изображение",
+    "gif": "Поддержка анимации",
+    "tiff": "Высокое качество, большой",
+    "avif": "Новое поколение, лучшее качество",
+    "ico": "Иконка Windows (256x256)",
+    "tga": "Targa, устаревший формат",
+    "qoi": "Quite OK Image, быстрый",
+    "hdr": "Radiance HDR, высокий динамический диапазон",
+    "ppm": "Netpbm, научное применение",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (ввод)",
+    "heif": "Фото iPhone/Android (ввод)",
+    "jxl": "JPEG XL, новое поколение",
+    "jp2": "JPEG 2000, медицина/архив (ввод)",
+    "pdf": "Формат документа",
+    "wav": "Несжатый звук",
+    "mp3": "Сжатый, универсальный",
+    "flac": "Звук без потерь",
+    "ogg": "Открытый, сжатый",
+    "aac": "Продвинутый аудиокодек",
+    "aiff": "Apple несжатый звук",
+    "alac": "Apple без потерь (ввод)",
+    "opus": "Лучшее соотношение качество/размер",
+    "wma": "Windows Media Audio (ввод)",
+    "ac3": "Dolby Digital (ввод)",
+    "dts": "Домашний кинотеатр (ввод)",
+    "mp4": "Универсальное видео, H.264",
+    "avi": "Устаревшее видео, большие файлы",
+    "mkv": "Гибкий контейнер",
+    "mov": "Apple QuickTime",
+    "webm": "Веб-видео, VP9/AV1",
+    "flv": "Flash видео (устаревшее)",
+    "wmv": "Windows Media Video",
+    "mpeg": "Устаревшее вещание",
+    "ts": "Transport Stream, ТВ",
+    "3gp": "Устаревшее мобильное",
+    "m4v": "Apple видео без DRM",
+    "vob": "DVD видео (ввод)",
+    "json": "JavaScript Object Notation",
+    "yaml": "Формат данных YAML",
+    "toml": "Формат конфигурации TOML",
+    "xml": "Extensible Markup Language",
+    "md": "Текст Markdown",
+    "html": "Формат веб-страницы",
+    "rtf": "Rich Text Format (ввод)",
+    "epub": "Формат электронной книги (ввод)",
+    "txt": "Простой текст, универсальный",
+    "docx": "Документ Word",
+    "odt": "Текст OpenDocument",
+    "xlsx": "Таблица Excel",
+    "ods": "Таблица OpenDocument",
+    "csv": "Значения через запятую",
+    "pptx": "Презентация PowerPoint",
+    "odp": "Презентация OpenDocument",
+    "zip": "Самый распространённый архив",
+    "tar": "Архив Unix tar",
+    "targz": "Tar сжатый Gzip",
+    "tarbz2": "Tar сжатый Bzip2",
+    "tarxz": "Tar сжатый XZ",
+    "7z": "7-Zip, высокое сжатие",
+    "tarzst": "Tar сжатый Zstandard",
+    "rar": "Архив RAR (ввод)"
+  }
+}

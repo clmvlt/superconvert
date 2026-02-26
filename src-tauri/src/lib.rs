@@ -1,5 +1,4 @@
 mod commands;
-mod engine;
 mod orchestrator;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -25,6 +24,9 @@ pub fn run() {
             commands::convert::scan_directory,
             commands::convert::open_path,
             commands::convert::get_available_features,
+            commands::context_menu::register_context_menu,
+            commands::context_menu::unregister_context_menu,
+            commands::context_menu::is_context_menu_registered,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

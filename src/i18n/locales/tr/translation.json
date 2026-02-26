@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "Dosyaları buraya bırakın",
+    "dragAndDrop": "Dosyaları sürükleyip bırakın",
+    "orClickToBrowse": "veya göz atmak için tıklayın",
+    "addFiles": "Dosya ekle",
+    "addFolder": "Klasör ekle",
+    "orSelectFolder": "veya klasör seçin",
+    "filterAllSupported": "Tüm desteklenen",
+    "filterImages": "Görseller",
+    "filterAudio": "Ses",
+    "filterVideo": "Video",
+    "filterDocuments": "Belgeler",
+    "filterTextDocuments": "Metin belgeleri",
+    "filterSpreadsheets": "Tablolar",
+    "filterPresentations": "Sunumlar",
+    "filterData": "Veri",
+    "filterArchives": "Arşivler"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} dosya",
+    "fileCount_other": "{{count}} dosya",
+    "openFile": "Dosyayı aç",
+    "openFolder": "Klasörü aç"
+  },
+  "formatPicker": {
+    "outputFormat": "Çıkış formatı"
+  },
+  "quality": {
+    "label": "Kalite"
+  },
+  "outputFolder": {
+    "title": "Çıkış klasörü",
+    "placeholder": "Kaynakla aynı (varsayılan)"
+  },
+  "deleteOriginals": {
+    "label": "Orijinalleri sil",
+    "description": "Kaynak dosyalar dönüştürmeden sonra silinecek"
+  },
+  "convert": {
+    "openOutputFolder": "Çıkış klasörünü aç",
+    "convertAgain": "Tekrar dönüştür",
+    "clear": "Temizle",
+    "converting": "Dönüştürülüyor...",
+    "convertFiles_one": "{{count}} dosya dönüştür",
+    "convertFiles_other": "{{count}} dosya dönüştür"
+  },
+  "progress": {
+    "complete": "Tamamlandı",
+    "converting": "Dönüştürülüyor..."
+  },
+  "theme": {
+    "toggleTheme": "Tema değiştir",
+    "light": "Açık",
+    "dark": "Koyu",
+    "system": "Sistem"
+  },
+  "language": {
+    "label": "Dil"
+  },
+  "categories": {
+    "image": "Görsel",
+    "audio": "Ses",
+    "video": "Video",
+    "document": "Belge",
+    "spreadsheet": "Tablo",
+    "presentation": "Sunum",
+    "data": "Veri",
+    "archive": "Arşiv"
+  },
+  "formatDescriptions": {
+    "png": "Kayıpsız, şeffaflık",
+    "jpg": "Kayıplı, küçük boyut",
+    "webp": "Modern, en iyi sıkıştırma",
+    "bmp": "Sıkıştırılmamış bitmap",
+    "gif": "Animasyon desteği",
+    "tiff": "Yüksek kalite, büyük",
+    "avif": "Yeni nesil, en iyi kalite",
+    "ico": "Windows simgesi (256x256)",
+    "tga": "Targa, eski format",
+    "qoi": "Quite OK Image, hızlı",
+    "hdr": "Radiance HDR, yüksek dinamik aralık",
+    "ppm": "Netpbm, bilimsel kullanım",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (giriş)",
+    "heif": "iPhone/Android fotoğraflar (giriş)",
+    "jxl": "JPEG XL, yeni nesil",
+    "jp2": "JPEG 2000, tıbbi/arşiv (giriş)",
+    "pdf": "Belge formatı",
+    "wav": "Sıkıştırılmamış ses",
+    "mp3": "Sıkıştırılmış, evrensel",
+    "flac": "Kayıpsız ses",
+    "ogg": "Açık kaynak, sıkıştırılmış",
+    "aac": "Gelişmiş ses codec'i",
+    "aiff": "Apple sıkıştırılmamış ses",
+    "alac": "Apple kayıpsız (giriş)",
+    "opus": "En iyi kalite/boyut oranı",
+    "wma": "Windows Media Audio (giriş)",
+    "ac3": "Dolby Digital (giriş)",
+    "dts": "Ev sineması (giriş)",
+    "mp4": "Evrensel video, H.264",
+    "avi": "Eski video, büyük dosyalar",
+    "mkv": "Esnek kapsayıcı",
+    "mov": "Apple QuickTime",
+    "webm": "Web videosu, VP9/AV1",
+    "flv": "Flash videosu (eski)",
+    "wmv": "Windows Media Video",
+    "mpeg": "Eski yayın",
+    "ts": "Transport Stream, TV",
+    "3gp": "Eski mobil",
+    "m4v": "Apple DRM'siz video",
+    "vob": "DVD videosu (giriş)",
+    "json": "JavaScript Object Notation",
+    "yaml": "YAML veri formatı",
+    "toml": "TOML yapılandırma formatı",
+    "xml": "Extensible Markup Language",
+    "md": "Markdown metni",
+    "html": "Web sayfası formatı",
+    "rtf": "Rich Text Format (giriş)",
+    "epub": "E-kitap formatı (giriş)",
+    "txt": "Düz metin, evrensel",
+    "docx": "Word belgesi",
+    "odt": "OpenDocument metni",
+    "xlsx": "Excel tablosu",
+    "ods": "OpenDocument tablosu",
+    "csv": "Virgülle ayrılmış değerler",
+    "pptx": "PowerPoint sunumu",
+    "odp": "OpenDocument sunumu",
+    "zip": "En yaygın arşiv",
+    "tar": "Unix tar arşivi",
+    "targz": "Gzip sıkıştırılmış tar",
+    "tarbz2": "Bzip2 sıkıştırılmış tar",
+    "tarxz": "XZ sıkıştırılmış tar",
+    "7z": "7-Zip, yüksek sıkıştırma",
+    "tarzst": "Zstandard sıkıştırılmış tar",
+    "rar": "RAR arşivi (giriş)"
+  }
+}

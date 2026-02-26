@@ -1,4 +1,5 @@
 import { FolderOpen, Loader2, RotateCcw, Trash2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 
 interface ConvertButtonProps {
@@ -20,16 +21,18 @@ export default function ConvertButton({
   onOpenFolder,
   onReset,
 }: ConvertButtonProps) {
+  const { t } = useTranslation();
+
   if (conversionDone) {
     return (
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-1.5 drop-shadow-[0_0_12px_rgba(0,0,0,0.5)]">
         <Button
           onClick={onOpenFolder}
           className="w-full bg-green-600/90 hover:bg-green-600 text-white"
           size="default"
         >
           <FolderOpen className="size-3.5" />
-          Open output folder
+          {t("convert.openOutputFolder")}
         </Button>
         <div className="flex gap-1.5">
           <Button
@@ -39,7 +42,7 @@ export default function ConvertButton({
             className="flex-1"
           >
             <RotateCcw className="size-3" />
-            Convert again
+            {t("convert.convertAgain")}
           </Button>
           <Button
             variant="ghost"
@@ -48,7 +51,7 @@ export default function ConvertButton({
             className="text-muted-foreground/50 hover:text-red-400"
           >
             <Trash2 className="size-3" />
-            Clear
+            {t("convert.clear")}
           </Button>
         </div>
       </div>
@@ -56,7 +59,7 @@ export default function ConvertButton({
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 drop-shadow-[0_0_12px_rgba(0,0,0,0.5)]">
       <Button
         onClick={onConvert}
         disabled={fileCount === 0 || isConverting}
@@ -66,10 +69,10 @@ export default function ConvertButton({
         {isConverting ? (
           <>
             <Loader2 className="size-3.5 animate-spin" />
-            Converting...
+            {t("convert.converting")}
           </>
         ) : (
-          `Convert ${fileCount} file${fileCount !== 1 ? "s" : ""}`
+          t("convert.convertFiles", { count: fileCount })
         )}
       </Button>
       {fileCount > 0 && !isConverting && (

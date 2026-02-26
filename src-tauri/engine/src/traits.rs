@@ -1,7 +1,7 @@
 use std::path::Path;
 
-use super::error::ConversionError;
-use super::types::ConversionOptions;
+use crate::error::ConversionError;
+use crate::types::ConversionOptions;
 
 #[allow(dead_code)]
 pub trait Converter: Send + Sync {

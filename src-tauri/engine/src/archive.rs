@@ -2,9 +2,9 @@ use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::{ArchiveFormat, ConversionOptions, OutputFormat};
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::{ArchiveFormat, ConversionOptions, OutputFormat};
 
 pub struct ArchiveConverter;
 

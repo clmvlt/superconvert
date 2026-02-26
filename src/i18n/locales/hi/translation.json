@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "फ़ाइलें यहाँ छोड़ें",
+    "dragAndDrop": "फ़ाइलें यहाँ खींचें और छोड़ें",
+    "orClickToBrowse": "या ब्राउज़ करने के लिए क्लिक करें",
+    "addFiles": "फ़ाइलें जोड़ें",
+    "addFolder": "फ़ोल्डर जोड़ें",
+    "orSelectFolder": "या फ़ोल्डर चुनें",
+    "filterAllSupported": "सभी समर्थित",
+    "filterImages": "चित्र",
+    "filterAudio": "ऑडियो",
+    "filterVideo": "वीडियो",
+    "filterDocuments": "दस्तावेज़",
+    "filterTextDocuments": "टेक्स्ट दस्तावेज़",
+    "filterSpreadsheets": "स्प्रेडशीट",
+    "filterPresentations": "प्रस्तुतियाँ",
+    "filterData": "डेटा",
+    "filterArchives": "संग्रह"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} फ़ाइल",
+    "fileCount_other": "{{count}} फ़ाइलें",
+    "openFile": "फ़ाइल खोलें",
+    "openFolder": "फ़ोल्डर खोलें"
+  },
+  "formatPicker": {
+    "outputFormat": "आउटपुट फ़ॉर्मेट"
+  },
+  "quality": {
+    "label": "गुणवत्ता"
+  },
+  "outputFolder": {
+    "title": "आउटपुट फ़ोल्डर",
+    "placeholder": "स्रोत के समान (डिफ़ॉल्ट)"
+  },
+  "deleteOriginals": {
+    "label": "मूल फ़ाइलें हटाएँ",
+    "description": "रूपांतरण के बाद स्रोत फ़ाइलें हटा दी जाएँगी"
+  },
+  "convert": {
+    "openOutputFolder": "आउटपुट फ़ोल्डर खोलें",
+    "convertAgain": "फिर से कन्वर्ट करें",
+    "clear": "साफ़ करें",
+    "converting": "कन्वर्ट हो रहा है...",
+    "convertFiles_one": "{{count}} फ़ाइल कन्वर्ट करें",
+    "convertFiles_other": "{{count}} फ़ाइलें कन्वर्ट करें"
+  },
+  "progress": {
+    "complete": "पूर्ण",
+    "converting": "कन्वर्ट हो रहा है..."
+  },
+  "theme": {
+    "toggleTheme": "थीम बदलें",
+    "light": "लाइट",
+    "dark": "डार्क",
+    "system": "सिस्टम"
+  },
+  "language": {
+    "label": "भाषा"
+  },
+  "categories": {
+    "image": "चित्र",
+    "audio": "ऑडियो",
+    "video": "वीडियो",
+    "document": "दस्तावेज़",
+    "spreadsheet": "स्प्रेडशीट",
+    "presentation": "प्रस्तुति",
+    "data": "डेटा",
+    "archive": "संग्रह"
+  },
+  "formatDescriptions": {
+    "png": "लॉसलेस, पारदर्शिता",
+    "jpg": "लॉसी, छोटा आकार",
+    "webp": "आधुनिक, सर्वोत्तम संपीड़न",
+    "bmp": "असंपीड़ित बिटमैप",
+    "gif": "एनिमेशन समर्थन",
+    "tiff": "उच्च गुणवत्ता, बड़ा",
+    "avif": "अगली पीढ़ी, सर्वोत्तम गुणवत्ता",
+    "ico": "Windows आइकन (256x256)",
+    "tga": "Targa, पुराना फ़ॉर्मेट",
+    "qoi": "Quite OK Image, तेज़",
+    "hdr": "Radiance HDR, उच्च गतिशील रेंज",
+    "ppm": "Netpbm, वैज्ञानिक उपयोग",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (इनपुट)",
+    "heif": "iPhone/Android फ़ोटो (इनपुट)",
+    "jxl": "JPEG XL, अगली पीढ़ी",
+    "jp2": "JPEG 2000, चिकित्सा/संग्रह (इनपुट)",
+    "pdf": "दस्तावेज़ फ़ॉर्मेट",
+    "wav": "असंपीड़ित ऑडियो",
+    "mp3": "संपीड़ित, सार्वभौमिक",
+    "flac": "लॉसलेस ऑडियो",
+    "ogg": "ओपन सोर्स, संपीड़ित",
+    "aac": "उन्नत ऑडियो कोडेक",
+    "aiff": "Apple असंपीड़ित ऑडियो",
+    "alac": "Apple लॉसलेस (इनपुट)",
+    "opus": "सर्वोत्तम गुणवत्ता/आकार अनुपात",
+    "wma": "Windows Media Audio (इनपुट)",
+    "ac3": "Dolby Digital (इनपुट)",
+    "dts": "होम सिनेमा (इनपुट)",
+    "mp4": "सार्वभौमिक वीडियो, H.264",
+    "avi": "पुराना वीडियो, बड़ी फ़ाइलें",
+    "mkv": "लचीला कंटेनर",
+    "mov": "Apple QuickTime",
+    "webm": "वेब वीडियो, VP9/AV1",
+    "flv": "Flash वीडियो (पुराना)",
+    "wmv": "Windows Media Video",
+    "mpeg": "पुराना प्रसारण",
+    "ts": "Transport Stream, TV",
+    "3gp": "पुराना मोबाइल",
+    "m4v": "Apple DRM-मुक्त वीडियो",
+    "vob": "DVD वीडियो (इनपुट)",
+    "json": "JavaScript Object Notation",
+    "yaml": "YAML डेटा फ़ॉर्मेट",
+    "toml": "TOML कॉन्फ़िग फ़ॉर्मेट",
+    "xml": "Extensible Markup Language",
+    "md": "Markdown टेक्स्ट",
+    "html": "वेब पेज फ़ॉर्मेट",
+    "rtf": "Rich Text Format (इनपुट)",
+    "epub": "ई-बुक फ़ॉर्मेट (इनपुट)",
+    "txt": "सादा टेक्स्ट, सार्वभौमिक",
+    "docx": "Word दस्तावेज़",
+    "odt": "OpenDocument टेक्स्ट",
+    "xlsx": "Excel स्प्रेडशीट",
+    "ods": "OpenDocument स्प्रेडशीट",
+    "csv": "कॉमा सेपरेटेड वैल्यूज़",
+    "pptx": "PowerPoint प्रस्तुति",
+    "odp": "OpenDocument प्रस्तुति",
+    "zip": "सबसे आम संग्रह",
+    "tar": "Unix tar संग्रह",
+    "targz": "Gzip संपीड़ित tar",
+    "tarbz2": "Bzip2 संपीड़ित tar",
+    "tarxz": "XZ संपीड़ित tar",
+    "7z": "7-Zip, उच्च संपीड़न",
+    "tarzst": "Zstandard संपीड़ित tar",
+    "rar": "RAR संग्रह (इनपुट)"
+  }
+}

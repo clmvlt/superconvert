@@ -2,7 +2,7 @@ use std::path::Path;
 
 use tauri::AppHandle;
 
-use crate::engine::{
+use superconvert_engine::{
     ArchiveFormat, AudioFormat, BatchConversionRequest, BatchConversionResult, ConversionError,
     DataFormat, DocumentFormat, FileInfo, ImageFormat, OutputFormatInfo, VideoFormat, file_category,
     resolve_format,

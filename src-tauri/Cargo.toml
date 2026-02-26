@@ -1,3 +1,6 @@
+[workspace]
+members = ["engine", "cli"]
+
 [package]
 name = "superconvert"
 version = "0.0.7"
@@ -14,20 +17,23 @@ crate-type = ["staticlib", "cdylib", "rlib"]
 
 [features]
 default = []
-heif = ["dep:libheif-rs"]
-raw-photos = ["dep:rawloader", "dep:imagepipe"]
-jxl = ["dep:jxl-oxide"]
-jpeg2000 = ["dep:openjpeg-sys"]
-mp3-encode = ["dep:mp3lame-encoder"]
-vorbis-encode = ["dep:vorbis-encoder"]
-opus-encode = ["dep:audiopus"]
-ffmpeg = ["dep:ffmpeg-next"]
-rar = ["dep:unrar"]
+heif = ["superconvert-engine/heif"]
+raw-photos = ["superconvert-engine/raw-photos"]
+jxl = ["superconvert-engine/jxl"]
+jpeg2000 = ["superconvert-engine/jpeg2000"]
+mp3-encode = ["superconvert-engine/mp3-encode"]
+vorbis-encode = ["superconvert-engine/vorbis-encode"]
+opus-encode = ["superconvert-engine/opus-encode"]
+ffmpeg = ["superconvert-engine/ffmpeg"]
+rar = ["superconvert-engine/rar"]
 
 [build-dependencies]
 tauri-build = { version = "2.5.4", features = [] }
 
 [dependencies]
+# === Engine crate ===
+superconvert-engine = { path = "engine" }
+
 # === Tauri ===
 tauri = { version = "2.10.0", features = [] }
 tauri-plugin-log = "2"
@@ -43,73 +49,13 @@ serde_json = "1.0"
 tokio = { version = "1", features = ["full"] }
 rayon = "1.10"
 
-# === Image conversion ===
-image = { version = "0.25", features = ["png", "jpeg", "gif", "bmp", "ico", "tiff", "webp", "avif", "hdr", "pnm", "exr"] }
-resvg = "0.44"
-usvg = "0.44"
-psd = "0.3"
-
-# === Image conversion (optional, feature-gated) ===
-libheif-rs = { version = "1", optional = true }
-rawloader = { version = "0.37", optional = true }
-imagepipe = { version = "0.5", optional = true }
-jxl-oxide = { version = "0.10", optional = true }
-openjpeg-sys = { version = "1.0", optional = true }
-
-# === Audio conversion ===
-symphonia = { version = "0.5", features = ["all"] }
-hound = "3.5"
-
-# === Audio conversion (optional, feature-gated) ===
-mp3lame-encoder = { version = "0.2", optional = true }
-vorbis-encoder = { version = "0.1", optional = true }
-audiopus = { version = "0.3.0-rc.0", optional = true }
-
-# === PDF ===
-lopdf = "0.39"
-printpdf = "0.9"
-
-# === Document conversion ===
-docx-rs = "0.4"
-quick-xml = "0.37"
-zip = { version = "2", default-features = false, features = ["deflate"] }
-csv = "1.3"
-calamine = "0.26"
-rust_xlsxwriter = "0.80"
-spreadsheet-ods = "0.25"
-
-# === Data format conversion ===
-serde_yaml = "0.9"
-toml = { version = "0.8", features = ["preserve_order"] }
-pulldown-cmark = "0.12"
-
-# === Archive conversion ===
-tar = "0.4"
-flate2 = "1.0"
-bzip2 = "0.5"
-xz2 = "0.1"
-sevenz-rust = "0.6"
-zstd = "0.13"
-
-# === Archive (optional) ===
-unrar = { version = "0.5", optional = true }
-
-# === Video (optional, feature-gated) ===
-ffmpeg-next = { version = "7", optional = true }
-
 # === Error handling ===
 anyhow = "1"
-thiserror = "2"
 
 # === Logging ===
 log = "0.4"
 tracing = "0.1"
 tracing-subscriber = "0.3"
-
-# === Utils ===
-uuid = { version = "1", features = ["v4"] }
-tempfile = "3"
-mime_guess = "2"
 
 # === Platform: Windows context menu ===
 [target.'cfg(windows)'.dependencies]

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { open } from "@tauri-apps/plugin-dialog";
 import { FolderOpen } from "lucide-react";
 
@@ -12,6 +13,8 @@ export default function OutputFolderPicker({
   onChange,
   disabled,
 }: OutputFolderPickerProps) {
+  const { t } = useTranslation();
+
   const handlePick = async () => {
     const result = await open({
       directory: true,
@@ -32,7 +35,7 @@ export default function OutputFolderPicker({
       {folder ? (
         <span className="truncate text-xs text-foreground/80">{folder}</span>
       ) : (
-        <span className="text-xs text-muted-foreground/40">Same as source (default)</span>
+        <span className="text-xs text-muted-foreground/40">{t("outputFolder.placeholder")}</span>
       )}
     </button>
   );

@@ -13,19 +13,14 @@
     "windows": [
       {
         "title": "SuperConvert",
-        "width": 1000,
-        "height": 700,
+        "width": 820,
+        "height": 350,
         "minWidth": 600,
-        "minHeight": 400,
+        "minHeight": 350,
         "resizable": true,
         "fullscreen": false,
         "decorations": true,
-        "backgroundColor": [
-          9,
-          9,
-          11,
-          255
-        ]
+        "backgroundColor": [9, 9, 11, 255]
       }
     ],
     "security": {

@@ -11,9 +11,9 @@ use symphonia::core::io::MediaSourceStream;
 use symphonia::core::meta::MetadataOptions;
 use symphonia::core::probe::Hint;
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::{AudioFormat, ConversionOptions, OutputFormat};
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::{AudioFormat, ConversionOptions, OutputFormat};
 
 struct DecodedAudio {
     samples: Vec<i16>,

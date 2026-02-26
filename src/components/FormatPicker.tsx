@@ -1,4 +1,5 @@
-import { FORMAT_OPTIONS, CATEGORY_LABELS, CATEGORY_COLORS } from "@/types/conversion";
+import { useTranslation } from "react-i18next";
+import { FORMAT_OPTIONS, CATEGORY_COLORS } from "@/types/conversion";
 import type { FileCategory } from "@/types/conversion";
 
 interface FormatPickerProps {
@@ -11,12 +12,14 @@ interface FormatPickerProps {
 }
 
 export default function FormatPicker({ category, showLabel, formats, selected, onChange, disabled }: FormatPickerProps) {
+  const { t } = useTranslation();
+
   return (
     <div>
       {showLabel && (
         <div className="mb-2">
           <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full uppercase tracking-wide ${CATEGORY_COLORS[category]}`}>
-            {CATEGORY_LABELS[category]}
+            {t(`categories.${category}`)}
           </span>
         </div>
       )}

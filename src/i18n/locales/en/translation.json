@@ -1,0 +1,156 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "Drop files here",
+    "dragAndDrop": "Drag & drop files here",
+    "orClickToBrowse": "or click to browse",
+    "addFiles": "Add files",
+    "addFolder": "Add folder",
+    "orSelectFolder": "or select a folder",
+    "filterAllSupported": "All supported",
+    "filterImages": "Images",
+    "filterAudio": "Audio",
+    "filterVideo": "Video",
+    "filterDocuments": "Documents",
+    "filterTextDocuments": "Text Documents",
+    "filterSpreadsheets": "Spreadsheets",
+    "filterPresentations": "Presentations",
+    "filterData": "Data",
+    "filterArchives": "Archives"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} file",
+    "fileCount_other": "{{count}} files",
+    "openFile": "Open file",
+    "openFolder": "Open folder"
+  },
+  "formatPicker": {
+    "outputFormat": "Output format"
+  },
+  "quality": {
+    "label": "Quality"
+  },
+  "outputFolder": {
+    "title": "Output folder",
+    "placeholder": "Same as source (default)"
+  },
+  "deleteOriginals": {
+    "label": "Delete originals",
+    "description": "Source files will be removed after conversion"
+  },
+  "convert": {
+    "openOutputFolder": "Open output folder",
+    "convertAgain": "Convert again",
+    "clear": "Clear",
+    "converting": "Converting...",
+    "convertFiles_one": "Convert {{count}} file",
+    "convertFiles_other": "Convert {{count}} files"
+  },
+  "progress": {
+    "complete": "Complete",
+    "converting": "Converting..."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "integration": "Integration"
+  },
+  "theme": {
+    "toggleTheme": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "fr": "Français"
+  },
+  "contextMenu": {
+    "label": "Explorer context menu",
+    "description": "Add 'Convert' to right-click menu",
+    "installing": "Installing...",
+    "uninstalling": "Uninstalling..."
+  },
+  "categories": {
+    "image": "Image",
+    "audio": "Audio",
+    "video": "Video",
+    "document": "Document",
+    "spreadsheet": "Spreadsheet",
+    "presentation": "Presentation",
+    "data": "Data",
+    "archive": "Archive"
+  },
+  "formatDescriptions": {
+    "png": "Lossless, transparency",
+    "jpg": "Lossy, small size",
+    "webp": "Modern, best compression",
+    "bmp": "Uncompressed bitmap",
+    "gif": "Animation support",
+    "tiff": "High quality, large",
+    "avif": "Next-gen, best quality",
+    "ico": "Windows icon (256x256)",
+    "tga": "Targa, legacy format",
+    "qoi": "Quite OK Image, fast",
+    "hdr": "Radiance HDR, high dynamic range",
+    "ppm": "Netpbm, scientific use",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (input)",
+    "heif": "iPhone/Android photos (input)",
+    "jxl": "JPEG XL, next-gen",
+    "jp2": "JPEG 2000, medical/archive (input)",
+    "pdf": "Document format",
+    "wav": "Uncompressed audio",
+    "mp3": "Compressed, universal",
+    "flac": "Lossless audio",
+    "ogg": "Open source, compressed",
+    "aac": "Advanced audio codec",
+    "aiff": "Apple uncompressed audio",
+    "alac": "Apple lossless (input)",
+    "opus": "Best quality/size ratio",
+    "wma": "Windows Media Audio (input)",
+    "ac3": "Dolby Digital (input)",
+    "dts": "Home cinema (input)",
+    "mp4": "Universal video, H.264",
+    "avi": "Legacy video, large files",
+    "mkv": "Flexible container",
+    "mov": "Apple QuickTime",
+    "webm": "Web video, VP9/AV1",
+    "flv": "Flash video (legacy)",
+    "wmv": "Windows Media Video",
+    "mpeg": "Legacy broadcast",
+    "ts": "Transport Stream, TV",
+    "3gp": "Mobile legacy",
+    "m4v": "Apple DRM-free video",
+    "vob": "DVD video (input)",
+    "json": "JavaScript Object Notation",
+    "yaml": "YAML data format",
+    "toml": "TOML config format",
+    "xml": "Extensible Markup Language",
+    "md": "Markdown text",
+    "html": "Web page format",
+    "rtf": "Rich Text Format (input)",
+    "epub": "E-book format (input)",
+    "txt": "Plain text, universal",
+    "docx": "Word document",
+    "odt": "OpenDocument text",
+    "xlsx": "Excel spreadsheet",
+    "ods": "OpenDocument spreadsheet",
+    "csv": "Comma-separated values",
+    "pptx": "PowerPoint presentation",
+    "odp": "OpenDocument presentation",
+    "zip": "Most common archive",
+    "tar": "Unix tape archive",
+    "targz": "Gzip compressed tar",
+    "tarbz2": "Bzip2 compressed tar",
+    "tarxz": "XZ compressed tar",
+    "7z": "7-Zip, high compression",
+    "tarzst": "Zstandard compressed tar",
+    "rar": "RAR archive (input)"
+  }
+}

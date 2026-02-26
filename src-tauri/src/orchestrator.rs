@@ -1,30 +1,10 @@
-use std::sync::Arc;
-
 use rayon::prelude::*;
 use tauri::{AppHandle, Emitter};
 
-use crate::engine::{
-    ArchiveConverter, AudioConverter, BatchConversionRequest, BatchConversionResult, Converter,
-    DataConverter, DocumentConverter, ImageConverter, JobResult, JobStatus, PresentationConverter,
-    ProgressEvent, SpreadsheetConverter, file_category,
+use superconvert_engine::{
+    BatchConversionRequest, BatchConversionResult, JobResult, JobStatus, ProgressEvent,
+    dispatch_converter,
 };
-
-#[cfg(feature = "ffmpeg")]
-use crate::engine::VideoConverter;
-
-fn dispatch_converter(input_ext: &str) -> Arc<dyn Converter> {
-    match file_category(input_ext) {
-        Some("audio") => Arc::new(AudioConverter::new()),
-        Some("document") => Arc::new(DocumentConverter::new()),
-        Some("spreadsheet") => Arc::new(SpreadsheetConverter::new()),
-        Some("presentation") => Arc::new(PresentationConverter::new()),
-        Some("data") => Arc::new(DataConverter::new()),
-        Some("archive") => Arc::new(ArchiveConverter::new()),
-        #[cfg(feature = "ffmpeg")]
-        Some("video") => Arc::new(VideoConverter::new()),
-        _ => Arc::new(ImageConverter::new()),
-    }
-}
 
 pub fn run_batch_conversion(
     app: AppHandle,

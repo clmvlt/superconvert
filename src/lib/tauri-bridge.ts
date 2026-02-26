@@ -42,3 +42,15 @@ export async function onConversionProgress(
 export async function getAvailableFeatures(): Promise<string[]> {
   return invoke<string[]>("get_available_features");
 }
+
+export async function registerContextMenu(): Promise<string> {
+  return invoke<string>("register_context_menu");
+}
+
+export async function unregisterContextMenu(): Promise<string> {
+  return invoke<string>("unregister_context_menu");
+}
+
+export async function isContextMenuRegistered(): Promise<boolean> {
+  return invoke<boolean>("is_context_menu_registered");
+}

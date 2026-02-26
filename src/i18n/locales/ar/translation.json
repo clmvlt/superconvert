@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "بواسطة dimzou"
+  },
+  "dropzone": {
+    "dropHere": "أفلت الملفات هنا",
+    "dragAndDrop": "اسحب وأفلت الملفات هنا",
+    "orClickToBrowse": "أو انقر للتصفح",
+    "addFiles": "إضافة ملفات",
+    "addFolder": "إضافة مجلد",
+    "orSelectFolder": "أو اختر مجلداً",
+    "filterAllSupported": "جميع الصيغ المدعومة",
+    "filterImages": "صور",
+    "filterAudio": "صوت",
+    "filterVideo": "فيديو",
+    "filterDocuments": "مستندات",
+    "filterTextDocuments": "مستندات نصية",
+    "filterSpreadsheets": "جداول بيانات",
+    "filterPresentations": "عروض تقديمية",
+    "filterData": "بيانات",
+    "filterArchives": "أرشيفات"
+  },
+  "fileList": {
+    "fileCount_one": "ملف {{count}}",
+    "fileCount_other": "{{count}} ملفات",
+    "openFile": "فتح الملف",
+    "openFolder": "فتح المجلد"
+  },
+  "formatPicker": {
+    "outputFormat": "صيغة الإخراج"
+  },
+  "quality": {
+    "label": "الجودة"
+  },
+  "outputFolder": {
+    "title": "مجلد الإخراج",
+    "placeholder": "نفس المصدر (افتراضي)"
+  },
+  "deleteOriginals": {
+    "label": "حذف الأصلية",
+    "description": "سيتم حذف الملفات المصدرية بعد التحويل"
+  },
+  "convert": {
+    "openOutputFolder": "فتح مجلد الإخراج",
+    "convertAgain": "تحويل مرة أخرى",
+    "clear": "مسح",
+    "converting": "جارٍ التحويل...",
+    "convertFiles_one": "تحويل ملف {{count}}",
+    "convertFiles_other": "تحويل {{count}} ملفات"
+  },
+  "progress": {
+    "complete": "مكتمل",
+    "converting": "جارٍ التحويل..."
+  },
+  "theme": {
+    "toggleTheme": "تبديل السمة",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "النظام"
+  },
+  "language": {
+    "label": "اللغة"
+  },
+  "categories": {
+    "image": "صورة",
+    "audio": "صوت",
+    "video": "فيديو",
+    "document": "مستند",
+    "spreadsheet": "جدول بيانات",
+    "presentation": "عرض تقديمي",
+    "data": "بيانات",
+    "archive": "أرشيف"
+  },
+  "formatDescriptions": {
+    "png": "بدون فقدان، شفافية",
+    "jpg": "مع فقدان، حجم صغير",
+    "webp": "حديث، أفضل ضغط",
+    "bmp": "صورة نقطية غير مضغوطة",
+    "gif": "دعم الرسوم المتحركة",
+    "tiff": "جودة عالية، حجم كبير",
+    "avif": "الجيل الجديد، أفضل جودة",
+    "ico": "أيقونة Windows (256x256)",
+    "tga": "Targa، صيغة قديمة",
+    "qoi": "Quite OK Image، سريع",
+    "hdr": "Radiance HDR، نطاق ديناميكي عالٍ",
+    "ppm": "Netpbm، استخدام علمي",
+    "exr": "OpenEXR، HDR/VFX",
+    "psd": "Adobe Photoshop (إدخال)",
+    "heif": "صور iPhone/Android (إدخال)",
+    "jxl": "JPEG XL، الجيل الجديد",
+    "jp2": "JPEG 2000، طبي/أرشيف (إدخال)",
+    "pdf": "صيغة مستند",
+    "wav": "صوت غير مضغوط",
+    "mp3": "مضغوط، عالمي",
+    "flac": "صوت بدون فقدان",
+    "ogg": "مفتوح المصدر، مضغوط",
+    "aac": "ترميز صوتي متقدم",
+    "aiff": "صوت Apple غير مضغوط",
+    "alac": "Apple بدون فقدان (إدخال)",
+    "opus": "أفضل نسبة جودة/حجم",
+    "wma": "Windows Media Audio (إدخال)",
+    "ac3": "Dolby Digital (إدخال)",
+    "dts": "سينما منزلية (إدخال)",
+    "mp4": "فيديو عالمي، H.264",
+    "avi": "فيديو قديم، ملفات كبيرة",
+    "mkv": "حاوية مرنة",
+    "mov": "Apple QuickTime",
+    "webm": "فيديو ويب، VP9/AV1",
+    "flv": "فيديو Flash (قديم)",
+    "wmv": "Windows Media Video",
+    "mpeg": "بث قديم",
+    "ts": "Transport Stream، تلفزيون",
+    "3gp": "هاتف محمول قديم",
+    "m4v": "فيديو Apple بدون DRM",
+    "vob": "فيديو DVD (إدخال)",
+    "json": "JavaScript Object Notation",
+    "yaml": "صيغة بيانات YAML",
+    "toml": "صيغة إعدادات TOML",
+    "xml": "Extensible Markup Language",
+    "md": "نص Markdown",
+    "html": "صيغة صفحة ويب",
+    "rtf": "Rich Text Format (إدخال)",
+    "epub": "صيغة كتاب إلكتروني (إدخال)",
+    "txt": "نص عادي، عالمي",
+    "docx": "مستند Word",
+    "odt": "نص OpenDocument",
+    "xlsx": "جدول بيانات Excel",
+    "ods": "جدول بيانات OpenDocument",
+    "csv": "قيم مفصولة بفواصل",
+    "pptx": "عرض PowerPoint",
+    "odp": "عرض OpenDocument",
+    "zip": "أرشيف الأكثر شيوعاً",
+    "tar": "أرشيف Unix tar",
+    "targz": "Tar مضغوط بـ Gzip",
+    "tarbz2": "Tar مضغوط بـ Bzip2",
+    "tarxz": "Tar مضغوط بـ XZ",
+    "7z": "7-Zip، ضغط عالٍ",
+    "tarzst": "Tar مضغوط بـ Zstandard",
+    "rar": "أرشيف RAR (إدخال)"
+  }
+}

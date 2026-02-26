@@ -6,9 +6,9 @@ use image::codecs::ico::IcoEncoder;
 use image::codecs::jpeg::JpegEncoder;
 use image::{DynamicImage, ImageEncoder};
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::{ConversionOptions, DocumentFormat, ImageFormat, OutputFormat};
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::{ConversionOptions, DocumentFormat, ImageFormat, OutputFormat};
 
 pub struct ImageConverter;
 

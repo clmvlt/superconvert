@@ -1,0 +1,32 @@
+[package]
+name = "superconvert-cli"
+version = "0.0.7"
+description = "SuperConvert CLI - lightweight command-line file converter and context menu installer"
+authors = ["cleme"]
+license = "MIT"
+edition = "2021"
+rust-version = "1.77.2"
+
+[[bin]]
+name = "superconvert-cli"
+path = "src/main.rs"
+
+[features]
+default = []
+heif = ["superconvert-engine/heif"]
+raw-photos = ["superconvert-engine/raw-photos"]
+jxl = ["superconvert-engine/jxl"]
+jpeg2000 = ["superconvert-engine/jpeg2000"]
+mp3-encode = ["superconvert-engine/mp3-encode"]
+vorbis-encode = ["superconvert-engine/vorbis-encode"]
+opus-encode = ["superconvert-engine/opus-encode"]
+ffmpeg = ["superconvert-engine/ffmpeg"]
+rar = ["superconvert-engine/rar"]
+
+[dependencies]
+superconvert-engine = { path = "../engine" }
+clap = { version = "4", features = ["derive"] }
+anyhow = "1"
+
+[target.'cfg(windows)'.dependencies]
+winreg = "0.55"

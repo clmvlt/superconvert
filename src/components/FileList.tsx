@@ -1,9 +1,9 @@
 import { Check, X, Loader2, Circle, FileSearch, FolderOpen, Trash2, ArrowRightLeft } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { ConversionFile, FileCategory } from "@/types/conversion";
-import { getOutputFormats, FORMAT_OPTIONS, CATEGORY_COLORS, CATEGORY_LABELS } from "@/types/conversion";
+import { getOutputFormats, FORMAT_OPTIONS, CATEGORY_COLORS } from "@/types/conversion";
 import { formatFileSize } from "@/lib/utils";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -44,16 +44,18 @@ function StatusIcon({ status }: { status: ConversionFile["status"] }) {
 }
 
 export default function FileList({ files, outputFormats, onRemove, onOpenFile, onOpenFolder, onConvertSingle, disabled }: FileListProps) {
+  const { t } = useTranslation();
+
   if (files.length === 0) return null;
 
   return (
-    <div className="flex-1 min-h-0 flex flex-col">
-      <div className="flex items-center justify-between mb-2 px-1">
+    <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+      <div className="flex items-center justify-between mb-2 px-1 flex-shrink-0">
         <span className="text-xs font-medium text-muted-foreground/50">
-          {files.length} file{files.length > 1 ? "s" : ""}
+          {t("fileList.fileCount", { count: files.length })}
         </span>
       </div>
-      <ScrollArea className="flex-1">
+      <ScrollArea className="flex-1 min-h-0">
         <div className="space-y-1 pr-3">
           {files.map((file) => {
             const targetFormat = outputFormats[file.category] ?? "?";
@@ -134,7 +136,7 @@ export default function FileList({ files, outputFormats, onRemove, onOpenFile, o
                         variant="ghost"
                         size="icon-xs"
                         onClick={() => onOpenFile(file.outputPath!)}
-                        title="Open file"
+                        title={t("fileList.openFile")}
                         className="text-primary/70 hover:text-primary"
                       >
                         <FileSearch className="size-3" />
@@ -143,7 +145,7 @@ export default function FileList({ files, outputFormats, onRemove, onOpenFile, o
                         variant="ghost"
                         size="icon-xs"
                         onClick={() => onOpenFolder(file.outputPath!)}
-                        title="Open folder"
+                        title={t("fileList.openFolder")}
                         className="text-muted-foreground/50 hover:text-foreground"
                       >
                         <FolderOpen className="size-3" />

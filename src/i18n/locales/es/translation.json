@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "por dimzou"
+  },
+  "dropzone": {
+    "dropHere": "Suelta los archivos aquí",
+    "dragAndDrop": "Arrastra y suelta archivos aquí",
+    "orClickToBrowse": "o haz clic para explorar",
+    "addFiles": "Añadir archivos",
+    "addFolder": "Añadir carpeta",
+    "orSelectFolder": "o selecciona una carpeta",
+    "filterAllSupported": "Todos los formatos",
+    "filterImages": "Imágenes",
+    "filterAudio": "Audio",
+    "filterVideo": "Vídeo",
+    "filterDocuments": "Documentos",
+    "filterTextDocuments": "Documentos de texto",
+    "filterSpreadsheets": "Hojas de cálculo",
+    "filterPresentations": "Presentaciones",
+    "filterData": "Datos",
+    "filterArchives": "Archivos comprimidos"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} archivo",
+    "fileCount_other": "{{count}} archivos",
+    "openFile": "Abrir archivo",
+    "openFolder": "Abrir carpeta"
+  },
+  "formatPicker": {
+    "outputFormat": "Formato de salida"
+  },
+  "quality": {
+    "label": "Calidad"
+  },
+  "outputFolder": {
+    "title": "Carpeta de salida",
+    "placeholder": "Igual que el origen (por defecto)"
+  },
+  "deleteOriginals": {
+    "label": "Eliminar originales",
+    "description": "Los archivos de origen se eliminarán tras la conversión"
+  },
+  "convert": {
+    "openOutputFolder": "Abrir carpeta de salida",
+    "convertAgain": "Convertir de nuevo",
+    "clear": "Limpiar",
+    "converting": "Convirtiendo...",
+    "convertFiles_one": "Convertir {{count}} archivo",
+    "convertFiles_other": "Convertir {{count}} archivos"
+  },
+  "progress": {
+    "complete": "Completado",
+    "converting": "Convirtiendo..."
+  },
+  "theme": {
+    "toggleTheme": "Cambiar tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "language": {
+    "label": "Idioma"
+  },
+  "categories": {
+    "image": "Imagen",
+    "audio": "Audio",
+    "video": "Vídeo",
+    "document": "Documento",
+    "spreadsheet": "Hoja de cálculo",
+    "presentation": "Presentación",
+    "data": "Datos",
+    "archive": "Archivo comprimido"
+  },
+  "formatDescriptions": {
+    "png": "Sin pérdida, transparencia",
+    "jpg": "Con pérdida, tamaño pequeño",
+    "webp": "Moderno, mejor compresión",
+    "bmp": "Mapa de bits sin comprimir",
+    "gif": "Soporte de animación",
+    "tiff": "Alta calidad, grande",
+    "avif": "Nueva generación, mejor calidad",
+    "ico": "Icono Windows (256x256)",
+    "tga": "Targa, formato antiguo",
+    "qoi": "Quite OK Image, rápido",
+    "hdr": "Radiance HDR, alto rango dinámico",
+    "ppm": "Netpbm, uso científico",
+    "exr": "OpenEXR, HDR/VFX",
+    "psd": "Adobe Photoshop (entrada)",
+    "heif": "Fotos iPhone/Android (entrada)",
+    "jxl": "JPEG XL, nueva generación",
+    "jp2": "JPEG 2000, médico/archivo (entrada)",
+    "pdf": "Formato de documento",
+    "wav": "Audio sin comprimir",
+    "mp3": "Comprimido, universal",
+    "flac": "Audio sin pérdida",
+    "ogg": "Código abierto, comprimido",
+    "aac": "Códec de audio avanzado",
+    "aiff": "Audio sin comprimir Apple",
+    "alac": "Sin pérdida Apple (entrada)",
+    "opus": "Mejor relación calidad/tamaño",
+    "wma": "Windows Media Audio (entrada)",
+    "ac3": "Dolby Digital (entrada)",
+    "dts": "Cine en casa (entrada)",
+    "mp4": "Vídeo universal, H.264",
+    "avi": "Vídeo antiguo, archivos grandes",
+    "mkv": "Contenedor flexible",
+    "mov": "Apple QuickTime",
+    "webm": "Vídeo web, VP9/AV1",
+    "flv": "Vídeo Flash (antiguo)",
+    "wmv": "Windows Media Video",
+    "mpeg": "Emisión antigua",
+    "ts": "Transport Stream, TV",
+    "3gp": "Móvil antiguo",
+    "m4v": "Vídeo Apple sin DRM",
+    "vob": "Vídeo DVD (entrada)",
+    "json": "JavaScript Object Notation",
+    "yaml": "Formato de datos YAML",
+    "toml": "Formato de configuración TOML",
+    "xml": "Extensible Markup Language",
+    "md": "Texto Markdown",
+    "html": "Formato de página web",
+    "rtf": "Rich Text Format (entrada)",
+    "epub": "Formato de libro electrónico (entrada)",
+    "txt": "Texto plano, universal",
+    "docx": "Documento Word",
+    "odt": "Texto OpenDocument",
+    "xlsx": "Hoja de cálculo Excel",
+    "ods": "Hoja de cálculo OpenDocument",
+    "csv": "Valores separados por comas",
+    "pptx": "Presentación PowerPoint",
+    "odp": "Presentación OpenDocument",
+    "zip": "Archivo comprimido más común",
+    "tar": "Archivo Unix tar",
+    "targz": "Tar comprimido con Gzip",
+    "tarbz2": "Tar comprimido con Bzip2",
+    "tarxz": "Tar comprimido con XZ",
+    "7z": "7-Zip, alta compresión",
+    "tarzst": "Tar comprimido con Zstandard",
+    "rar": "Archivo RAR (entrada)"
+  }
+}

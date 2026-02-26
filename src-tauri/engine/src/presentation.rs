@@ -8,9 +8,9 @@ use zip::read::ZipArchive;
 use zip::write::SimpleFileOptions;
 use zip::ZipWriter;
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::ConversionOptions;
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::ConversionOptions;
 
 struct SlideData {
     texts: Vec<String>,

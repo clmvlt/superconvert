@@ -3,9 +3,9 @@ use std::path::Path;
 use calamine::{open_workbook, Reader, Xlsx, Ods};
 use rust_xlsxwriter::Workbook;
 
-use super::error::ConversionError;
-use super::traits::Converter;
-use super::types::ConversionOptions;
+use crate::error::ConversionError;
+use crate::traits::Converter;
+use crate::types::ConversionOptions;
 
 struct SheetData {
     name: String,

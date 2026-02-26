@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Slider } from "@/components/ui/slider";
 
 interface QualitySliderProps {
@@ -11,11 +12,13 @@ export default function QualitySlider({
   onChange,
   disabled,
 }: QualitySliderProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-2.5 pt-1 border-t border-border/30">
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-muted-foreground/70">
-          Quality
+          {t("quality.label")}
         </span>
         <span className="text-xs font-semibold text-foreground/80 tabular-nums">
           {quality}%

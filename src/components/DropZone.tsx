@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getCurrentWebviewWindow } from "@tauri-apps/api/webviewWindow";
 import { open } from "@tauri-apps/plugin-dialog";
 import { Upload, Plus, FolderOpen } from "lucide-react";
@@ -17,6 +18,7 @@ interface DropZoneProps {
 const ALL_EXTENSIONS = getAllSupportedExtensions();
 
 export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabled }: DropZoneProps) {
+  const { t } = useTranslation();
   const [isDragging, setIsDragging] = useState(false);
 
   useEffect(() => {
@@ -50,16 +52,16 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
     const result = await open({
       multiple: true,
       filters: [
-        { name: "All supported", extensions: ALL_EXTENSIONS },
-        { name: "Images", extensions: ["png", "jpg", "jpeg", "gif", "bmp", "ico", "tif", "tiff", "webp", "avif", "svg", "tga", "qoi", "hdr", "ppm", "pgm", "pbm", "exr", "psd", "heif", "heic", "jxl", "jp2", "j2k", "dds", "cr2", "nef", "arw", "dng", "orf", "rw2"] },
-        { name: "Audio", extensions: ["mp3", "wav", "flac", "ogg", "aac", "aiff", "aif", "m4a", "alac", "opus", "wma", "ac3", "dts"] },
-        { name: "Video", extensions: ["mp4", "avi", "mkv", "mov", "webm", "flv", "wmv", "mpeg", "mpg", "ts", "3gp", "m4v", "vob"] },
-        { name: "Documents", extensions: ["pdf"] },
-        { name: "Text Documents", extensions: ["docx", "odt", "txt", "rtf", "epub"] },
-        { name: "Spreadsheets", extensions: ["xlsx", "xls", "ods", "csv"] },
-        { name: "Presentations", extensions: ["pptx", "odp"] },
-        { name: "Data", extensions: ["json", "yaml", "yml", "toml", "xml", "md", "html", "htm"] },
-        { name: "Archives", extensions: ["zip", "tar", "gz", "tgz", "bz2", "xz", "7z", "rar", "zst"] },
+        { name: t("dropzone.filterAllSupported"), extensions: ALL_EXTENSIONS },
+        { name: t("dropzone.filterImages"), extensions: ["png", "jpg", "jpeg", "gif", "bmp", "ico", "tif", "tiff", "webp", "avif", "svg", "tga", "qoi", "hdr", "ppm", "pgm", "pbm", "exr", "psd", "heif", "heic", "jxl", "jp2", "j2k", "dds", "cr2", "nef", "arw", "dng", "orf", "rw2"] },
+        { name: t("dropzone.filterAudio"), extensions: ["mp3", "wav", "flac", "ogg", "aac", "aiff", "aif", "m4a", "alac", "opus", "wma", "ac3", "dts"] },
+        { name: t("dropzone.filterVideo"), extensions: ["mp4", "avi", "mkv", "mov", "webm", "flv", "wmv", "mpeg", "mpg", "ts", "3gp", "m4v", "vob"] },
+        { name: t("dropzone.filterDocuments"), extensions: ["pdf"] },
+        { name: t("dropzone.filterTextDocuments"), extensions: ["docx", "odt", "txt", "rtf", "epub"] },
+        { name: t("dropzone.filterSpreadsheets"), extensions: ["xlsx", "xls", "ods", "csv"] },
+        { name: t("dropzone.filterPresentations"), extensions: ["pptx", "odp"] },
+        { name: t("dropzone.filterData"), extensions: ["json", "yaml", "yml", "toml", "xml", "md", "html", "htm"] },
+        { name: t("dropzone.filterArchives"), extensions: ["zip", "tar", "gz", "tgz", "bz2", "xz", "7z", "rar", "zst"] },
       ],
     });
     if (result && result.length > 0) {
@@ -83,7 +85,7 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
           className="flex-1 border-dashed border-border/60 hover:border-border text-muted-foreground hover:text-foreground"
         >
           <Plus className="size-3.5" />
-          Add files
+          {t("dropzone.addFiles")}
         </Button>
         <Button
           variant="outline"
@@ -93,7 +95,7 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
           className="border-dashed border-border/60 hover:border-border text-muted-foreground hover:text-foreground"
         >
           <FolderOpen className="size-3.5" />
-          Add folder
+          {t("dropzone.addFolder")}
         </Button>
       </div>
     );
@@ -103,7 +105,7 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
     <div
       onClick={handleBrowse}
       className={`
-        flex flex-col items-center justify-center gap-5 py-16 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer
+        flex-1 flex flex-col items-center justify-center gap-5 rounded-2xl border-2 border-dashed transition-all duration-300 cursor-pointer
         ${isDragging
           ? "border-primary/60 bg-primary/5 scale-[1.01]"
           : "border-border/40 hover:border-muted-foreground/30 bg-card/30 hover:bg-card/50"
@@ -116,10 +118,10 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
       </div>
       <div className="text-center space-y-1.5">
         <p className="text-sm font-medium text-foreground/80">
-          {isDragging ? "Drop files here" : "Drag & drop files here"}
+          {isDragging ? t("dropzone.dropHere") : t("dropzone.dragAndDrop")}
         </p>
         <p className="text-xs text-muted-foreground/50">
-          or click to browse
+          {t("dropzone.orClickToBrowse")}
         </p>
       </div>
       <Button
@@ -132,7 +134,7 @@ export default function DropZone({ onFilesAdded, onFolderAdded, hasFiles, disabl
         className="text-xs text-muted-foreground/50 hover:text-muted-foreground"
       >
         <FolderOpen className="size-3.5" />
-        or select a folder
+        {t("dropzone.orSelectFolder")}
       </Button>
     </div>
   );

@@ -1,0 +1,142 @@
+{
+  "app": {
+    "title": "SuperConvert",
+    "attribution": "by dimzou"
+  },
+  "dropzone": {
+    "dropHere": "将文件拖放到此处",
+    "dragAndDrop": "将文件拖放到此处",
+    "orClickToBrowse": "或点击浏览",
+    "addFiles": "添加文件",
+    "addFolder": "添加文件夹",
+    "orSelectFolder": "或选择文件夹",
+    "filterAllSupported": "所有支持的格式",
+    "filterImages": "图片",
+    "filterAudio": "音频",
+    "filterVideo": "视频",
+    "filterDocuments": "文档",
+    "filterTextDocuments": "文本文档",
+    "filterSpreadsheets": "电子表格",
+    "filterPresentations": "演示文稿",
+    "filterData": "数据",
+    "filterArchives": "压缩包"
+  },
+  "fileList": {
+    "fileCount_one": "{{count}} 个文件",
+    "fileCount_other": "{{count}} 个文件",
+    "openFile": "打开文件",
+    "openFolder": "打开文件夹"
+  },
+  "formatPicker": {
+    "outputFormat": "输出格式"
+  },
+  "quality": {
+    "label": "质量"
+  },
+  "outputFolder": {
+    "title": "输出文件夹",
+    "placeholder": "与源文件相同（默认）"
+  },
+  "deleteOriginals": {
+    "label": "删除原始文件",
+    "description": "转换后将删除源文件"
+  },
+  "convert": {
+    "openOutputFolder": "打开输出文件夹",
+    "convertAgain": "重新转换",
+    "clear": "清除",
+    "converting": "转换中...",
+    "convertFiles_one": "转换 {{count}} 个文件",
+    "convertFiles_other": "转换 {{count}} 个文件"
+  },
+  "progress": {
+    "complete": "完成",
+    "converting": "转换中..."
+  },
+  "theme": {
+    "toggleTheme": "切换主题",
+    "light": "浅色",
+    "dark": "深色",
+    "system": "跟随系统"
+  },
+  "language": {
+    "label": "语言"
+  },
+  "categories": {
+    "image": "图片",
+    "audio": "音频",
+    "video": "视频",
+    "document": "文档",
+    "spreadsheet": "电子表格",
+    "presentation": "演示文稿",
+    "data": "数据",
+    "archive": "压缩包"
+  },
+  "formatDescriptions": {
+    "png": "无损，支持透明",
+    "jpg": "有损，体积小",
+    "webp": "现代格式，最佳压缩",
+    "bmp": "未压缩位图",
+    "gif": "支持动画",
+    "tiff": "高质量，体积大",
+    "avif": "新一代，最佳质量",
+    "ico": "Windows 图标 (256x256)",
+    "tga": "Targa，旧格式",
+    "qoi": "Quite OK Image，快速",
+    "hdr": "Radiance HDR，高动态范围",
+    "ppm": "Netpbm，科学用途",
+    "exr": "OpenEXR，HDR/VFX",
+    "psd": "Adobe Photoshop（输入）",
+    "heif": "iPhone/Android 照片（输入）",
+    "jxl": "JPEG XL，新一代",
+    "jp2": "JPEG 2000，医疗/存档（输入）",
+    "pdf": "文档格式",
+    "wav": "未压缩音频",
+    "mp3": "压缩，通用",
+    "flac": "无损音频",
+    "ogg": "开源，压缩",
+    "aac": "高级音频编解码器",
+    "aiff": "Apple 未压缩音频",
+    "alac": "Apple 无损（输入）",
+    "opus": "最佳质量/体积比",
+    "wma": "Windows Media Audio（输入）",
+    "ac3": "杜比数字（输入）",
+    "dts": "家庭影院（输入）",
+    "mp4": "通用视频，H.264",
+    "avi": "旧视频，文件大",
+    "mkv": "灵活容器",
+    "mov": "Apple QuickTime",
+    "webm": "网络视频，VP9/AV1",
+    "flv": "Flash 视频（旧）",
+    "wmv": "Windows Media Video",
+    "mpeg": "旧广播格式",
+    "ts": "传输流，电视",
+    "3gp": "旧移动端",
+    "m4v": "Apple 无 DRM 视频",
+    "vob": "DVD 视频（输入）",
+    "json": "JavaScript 对象表示法",
+    "yaml": "YAML 数据格式",
+    "toml": "TOML 配置格式",
+    "xml": "可扩展标记语言",
+    "md": "Markdown 文本",
+    "html": "网页格式",
+    "rtf": "富文本格式（输入）",
+    "epub": "电子书格式（输入）",
+    "txt": "纯文本，通用",
+    "docx": "Word 文档",
+    "odt": "OpenDocument 文本",
+    "xlsx": "Excel 电子表格",
+    "ods": "OpenDocument 电子表格",
+    "csv": "逗号分隔值",
+    "pptx": "PowerPoint 演示文稿",
+    "odp": "OpenDocument 演示文稿",
+    "zip": "最常见的压缩包",
+    "tar": "Unix tar 归档",
+    "targz": "Gzip 压缩 tar",
+    "tarbz2": "Bzip2 压缩 tar",
+    "tarxz": "XZ 压缩 tar",
+    "7z": "7-Zip，高压缩率",
+    "tarzst": "Zstandard 压缩 tar",
+    "rar": "RAR 压缩包（输入）"
+  }
+}
